@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Invisibility versus Undead",
+        "type": "buff",
+        "min_level": 1,
+        "max_level": 9,
+        "duration_min_seconds": 120,
+        "duration_max_seconds": 1620,
+        "cast_on_you": "^You feel your skin tingle\\.$",
+        "cast_on_other": "^{s} fades a little\\.$",
+        "wears_off": "^Your skin stops tingling\\.$",
+        "classes": {
+            "cleric": 14,
+            "enchanter": 16,
+            "necromancer": 1,
+            "paladin": 22,
+            "shadow_knight": 9
+        }
+    }
+]
