@@ -206,16 +206,184 @@ categories_processor = xml.array(
     ]),
     nested='Categories')
 
+# <Category>Right // HP/AC Buffs</Category>
+# <ClipboardText></ClipboardText>
+# <Comments></Comments>
+# <CopyToClipboard>False</CopyToClipboard>
+# <CounterResetDuration>0</CounterResetDuration>
+# <DisplayText></DisplayText>
+# <EnableRegex>True</EnableRegex>
+# <InterruptSpeech>False</InterruptSpeech>
+# <Modified>2017-11-24T12:47:39</Modified>
+# <Name>Armor of Faith - Other</Name>
+# <PlayMediaFile>False</PlayMediaFile>
+# <RestartBasedOnTimerName>True</RestartBasedOnTimerName>
+# <TextToVoiceText></TextToVoiceText>
+# <TimerDuration>3780</TimerDuration>
+# <TimerEarlyEnders>
+#   <EarlyEnder>
+#     <EarlyEndText>^{c} lets go of external concerns\.$</EarlyEndText>
+#     <EnableRegex>True</EnableRegex>
+#   </EarlyEnder>
+#   <EarlyEnder>
+#     <EarlyEndText>^{c} lets go of {s}'s concerns\.$</EarlyEndText>
+#     <EnableRegex>True</EnableRegex>
+#   </EarlyEnder>
+# </TimerEarlyEnders>
+# <TimerEndingTime>300</TimerEndingTime>
+# <TimerEndedTrigger>
+#   <DisplayText>Armor of Faith wore off on {s}</DisplayText>
+#   <InterruptSpeech>False</InterruptSpeech>
+#   <PlayMediaFile>False</PlayMediaFile>
+#   <TextToVoiceText>Armor of Faith wore off on {s}</TextToVoiceText>
+#   <UseText>True</UseText>
+#   <UseTextToVoice>True</UseTextToVoice>
+# </TimerEndedTrigger>
+# <TimerEndingTrigger>
+#   <DisplayText>5 min left on Armor of Faith - {s}</DisplayText>
+#   <InterruptSpeech>False</InterruptSpeech>
+#   <PlayMediaFile>False</PlayMediaFile>
+#   <TextToVoiceText>5 min left on Armor of Faith - {s}</TextToVoiceText>
+#   <UseText>True</UseText>
+#   <UseTextToVoice>True</UseTextToVoice>
+# </TimerEndingTrigger>
+# <TimerMillisecondDuration>3780000</TimerMillisecondDuration>
+# <TimerName>Armor of Faith - {s}</TimerName>
+# <TimerStartBehavior>RestartTimer</TimerStartBehavior>
+# <TimerType>Timer</TimerType>
+# <TimerVisibleDuration>0</TimerVisibleDuration>
+# <TriggerText>^{s} feels the favor of the gods upon them\.$</TriggerText>
+# <UseCounterResetTimer>False</UseCounterResetTimer>
+# <UseFastCheck>False</UseFastCheck>
+# <UseText>False</UseText>
+# <UseTextToVoice>False</UseTextToVoice>
+# <UseTimerEnded>True</UseTimerEnded>
+# <UseTimerEnding>True</UseTimerEnding>
+
+_timer_early_ender = xml.dictionary('EarlyEnder', [
+    xml.string('EarlyEndText'),
+    xml.boolean('EnableRegex')
+])
+
+_timer_trigger_elements = [
+    xml.string('DisplayText'),
+    xml.boolean('InterruptSpeech'),
+    xml.boolean('PlayMediaFile'),
+    xml.string('TextToVoiceText'),
+    xml.boolean('UseText'),
+    xml.boolean('UseTextToVoice')
+]
+
+_trigger = xml.dictionary('Trigger', [
+    xml.string('Category'),
+    xml.string('ClipboardText'),
+    xml.string('Comments'),
+    xml.boolean('CopyToClipboard'),
+    xml.integer('CounterResetDuration'),
+    xml.string('DisplayText'),
+    xml.boolean('EnableRegex'),
+    xml.boolean('InterruptSpeech'),
+    xml.string('Modified'),
+    xml.string('Name'),
+    xml.boolean('PlayMediaFile'),
+    xml.boolean('RestartBasedOnTimerName'),
+    xml.string('TextToVoiceText'),
+    xml.integer('TimerDuration'),
+    xml.array(_timer_early_ender, nested='TimerEarlyEnders'),
+    xml.integer('TimerEndingTime'),
+    xml.dictionary('TimerEndedTrigger', _timer_trigger_elements),
+    xml.dictionary('TimerEndingTrigger', _timer_trigger_elements),
+    xml.integer('TimerMillisecondDuration'),
+    xml.string('TimerName'),
+    xml.string('TimerStartBehavior'),
+    xml.string('TimerType'),
+    xml.integer('TimerVisibleDuration'),
+    xml.string('TriggerText'),
+    xml.boolean('UseCounterResetTimer'),
+    xml.boolean('UseFastCheck'),
+    xml.boolean('UseText'),
+    xml.boolean('UseTextToVoice'),
+    xml.boolean('UseTimerEnded'),
+    xml.boolean('UseTimerEnding')],
+    required=False)
+
+_trigger_group_common = [
+    xml.string('Comments'),
+    xml.boolean('EnableByDefault'),
+    xml.integer('GroupId'),
+    xml.string('Name'),
+    xml.string('SelfCommented'),
+    xml.array(_trigger,
+              nested='Triggers',
+              omit_empty=True)
+]
+
+_trigger_group_five = xml.dictionary('TriggerGroup', [
+    *_trigger_group_common],
+    required=False)
+
+_trigger_group_four = xml.dictionary('TriggerGroup', [
+    *_trigger_group_common,
+    xml.array(_trigger_group_five,
+              nested='TriggerGroups',
+              omit_empty=True)],
+    required=False)
+
+_trigger_group_three = xml.dictionary('TriggerGroup', [
+    *_trigger_group_common,
+    xml.array(_trigger_group_four,
+              nested='TriggerGroups',
+              omit_empty=True)],
+    required=False)
+
+_trigger_group_two = xml.dictionary('TriggerGroup', [
+    *_trigger_group_common,
+    xml.array(_trigger_group_three,
+              nested='TriggerGroups',
+              omit_empty=True)],
+    required=False)
+
+_trigger_group_one = xml.dictionary('TriggerGroup', [
+    *_trigger_group_common,
+    xml.array(_trigger_group_two,
+              nested='TriggerGroups',
+              omit_empty=True)],
+    required=False)
+
+_trigger_group_zero = xml.dictionary('TriggerGroup', [
+    *_trigger_group_common,
+    xml.array(_trigger_group_one,
+              nested='TriggerGroups',
+              omit_empty=True)
+])
+
+trigger_groups_processor = xml.array(_trigger_group_zero,
+                                     nested='TriggerGroups')
+
+# <TriggerGroups>
+#     <TriggerGroup>
+#         <Comments></Comments>
+#         <EnableByDefault>False</EnableByDefault>
+#         <GroupId>3</GroupId>
+#         <Name>Class</Name>
+#         <SelfCommented>False</SelfCommented>
+#         <TriggerGroups/>
+#     </TriggerGroup>
+# <TriggerGroups>
+
 # <Configuration>
 #   <Settings/>
 #   <BehaviorGroups/>
 #   <Categories/>
+#   <TriggerGroups/>
+#   <Characters/>
 # </Configuration>
 
 configuration_processor = xml.dictionary('Configuration', [
     settings_processor,
     behavior_groups_processor,
-    categories_processor
+    categories_processor,
+    trigger_groups_processor
 ])
 
 settings = {
@@ -327,10 +495,107 @@ categories = [
     }
 ]
 
+# <TriggerGroups>
+#     <TriggerGroup>
+#         <Comments></Comments>
+#         <EnableByDefault>False</EnableByDefault>
+#         <GroupId>3</GroupId>
+#         <Name>Class</Name>
+#         <SelfCommented>False</SelfCommented>
+#         <TriggerGroups/>
+#     </TriggerGroup>
+# <TriggerGroups>
+
+trigger_groups = [
+    {
+        'Comments': '',
+        'EnableByDefault': False,
+        'GroupId': 3,
+        'Name': 'Class',
+        'SelfCommented': False,
+        'TriggerGroups': [
+            {
+                'Comments': '',
+                'EnableByDefault': False,
+                'GroupId': 6,
+                'Name': 'Enchanter',
+                'SelfCommented': False,
+                'TriggerGroups': [
+                    {
+                        'Comments': '',
+                        'EnableByDefault': False,
+                        'GroupId': 9,
+                        'Name': 'Buffs',
+                        'SelfCommented': False,
+                        'Triggers': [
+                            {
+                                'Category': 'Right // HP/AC Buffs',
+                                'ClipboardText': '',
+                                'Comments': '',
+                                'CopyToClipboard': False,
+                                'CounterResetDuration': 0,
+                                'DisplayText': '',
+                                'EnableRegex': True,
+                                'InterruptSpeech': False,
+                                'Modified': '2017-11-24T12:47:39',
+                                'Name': 'Armor of Faith - Other',
+                                'PlayMediaFile': False,
+                                'RestartBasedOnTimerName': True,
+                                'TextToVoiceText': '',
+                                'TimerDuration': 3780,
+                                'TimerEarlyEnders': [
+                                    {
+                                        'EarlyEndText': '^{c} lets go of external concerns\.$',
+                                        'EnableRegex': True
+                                    },
+                                    {
+                                        'EarlyEndText': '^{c} lets go of {s}\'s concerns\.$',
+                                        'EnableRegex': True
+                                    }
+                                ],
+                                'TimerEndingTime': 300,
+                                'TimerEndedTrigger': {
+                                    'DisplayText': 'Armor of Faith wore off on {s}',
+                                    'InterruptSpeech': False,
+                                    'PlayMediaFile': False,
+                                    'TextToVoiceText': 'Armor of Faith wore off on {s}',
+                                    'UseText': True,
+                                    'UseTextToVoice': True
+                                },
+                                'TimerEndingTrigger': {
+                                    'DisplayText': '5 min left on Armor of Faith - {s}',
+                                    'InterruptSpeech': False,
+                                    'PlayMediaFile': False,
+                                    'TextToVoiceText': '5 min left on Armor of Faith - {s}',
+                                    'UseText': True,
+                                    'UseTextToVoice': True
+                                },
+                                'TimerMillisecondDuration': 3780000,
+                                'TimerName': 'Armor of Faith - {s}',
+                                'TimerStartBehavior': 'RestartTimer',
+                                'TimerType': 'Timer',
+                                'TimerVisibleDuration': 0,
+                                'TriggerText': '^{s} feels the favor of the gods upon them\.$',
+                                'UseCounterResetTimer': False,
+                                'UseFastCheck': False,
+                                'UseText': False,
+                                'UseTextToVoice': False,
+                                'UseTimerEnded': True,
+                                'UseTimerEnding': True,
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
+
 configuration = {
     'Settings': settings,
     'BehaviorGroups': behavior_groups,
-    'Categories': categories
+    'Categories': categories,
+    'TriggerGroups': trigger_groups
 }
 
 # print(xml.serialize_to_string(settings_processor, settings, indent='    '))
