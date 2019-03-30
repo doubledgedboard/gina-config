@@ -88,6 +88,87 @@ settings_processor = xml.dictionary('Settings', [
               nested='ShareWhiteList'),
     xml.boolean('StopSearchingAfterFirstMatch')])
 
+# <BehaviorGroups>
+#     <Behavior>
+#         <BehaviorType>Text</BehaviorType>
+#         <Name>Default</Name>
+#         <FontName>Arial Black</FontName>
+#         <FontSize>22</FontSize>
+#         <GroupByCharacter>True</GroupByCharacter>
+#         <SortMethod>OrderTriggered</SortMethod>
+#         <TextFadeTime>10</TextFadeTime>
+#         <ShowTimerBar>True</ShowTimerBar>
+#         <EmptyBarColor>#D0000000</EmptyBarColor>
+#         <StandardizeTimerBars>False</StandardizeTimerBars>
+#         <BackgroundColor>#00000000</BackgroundColor>
+#         <BackgroundFadedColor>#00000000</BackgroundFadedColor>
+#         <WindowLayout>
+#             <WINDOWPLACEMENT>
+#                 <length>44</length>
+#                 <flags>0</flags>
+#                 <showCmd>1</showCmd>
+#                 <minPosition>
+#                     <X>-1</X>
+#                     <Y>-1</Y>
+#                 </minPosition>
+#                 <maxPosition>
+#                     <X>-1</X>
+#                     <Y>-1</Y>
+#                 </maxPosition>
+#                 <normalPosition>
+#                     <Left>980</Left>
+#                     <Top>371</Top>
+#                     <Right>1745</Right>
+#                     <Bottom>737</Bottom>
+#                 </normalPosition>
+#             </WINDOWPLACEMENT>
+#         </WindowLayout>
+#     </Behavior>
+# </BehaviorGroups>
+
+behavior_groups_processor = xml.array(
+    xml.dictionary('Behavior', [
+        xml.string('BackgroundColor'),
+        xml.string('BackgroundFadedColor'),
+        xml.string('BehaviorType'),
+        xml.string('EmptyBarColor'),
+        xml.string('FontName'),
+        xml.integer('FontSize'),
+        xml.boolean('GroupByCharacter'),
+        xml.string('Name'),
+        xml.boolean('ShowTimerBar'),
+        xml.string('SortMethod'),
+        xml.boolean('StandardizeTimerBars'),
+        xml.integer('TextFadeTime'),
+        xml.array(
+            xml.dictionary('WINDOWPLACEMENT', [
+                xml.integer('flags'),
+                xml.integer('length'),
+                xml.dictionary('maxPosition', [
+                    xml.integer('X'),
+                    xml.integer('Y')
+                ]),
+                xml.dictionary('minPosition', [
+                    xml.integer('X'),
+                    xml.integer('Y')
+                ]),
+                xml.dictionary('normalPosition', [
+                    xml.integer('Left'),
+                    xml.integer('Top'),
+                    xml.integer('Right'),
+                    xml.integer('Bottom')
+                ]),
+                xml.integer('showCmd')
+            ]),
+            nested='WindowLayout')
+    ]),
+    nested='BehaviorGroups')
+
+configuration_processor = xml.dictionary('Configuration', [
+    settings_processor,
+    behavior_groups_processor
+])
+
 settings = {
     'AcceptShareLevel': 'Anybody',
     'AllowGamTextTriggerShares': True,
@@ -136,4 +217,49 @@ settings = {
     'StopSearchingAfterFirstMatch': False
 }
 
-print(xml.serialize_to_string(settings_processor, settings, indent='    '))
+behavior_groups = [
+    {
+        'BackgroundColor': '#00000000',
+        'BackgroundFadedColor': '#00000000',
+        'BehaviorType': 'Text',
+        'EmptyBarColor': '#D0000000',
+        'FontName': 'Arial Black',
+        'FontSize': 22,
+        'GroupByCharacter': True,
+        'Name': 'Default',
+        'ShowTimerBar': True,
+        'SortMethod': 'OrderTriggered',
+        'StandardizeTimerBars': False,
+        'TextFadeTime': 10,
+        'WindowLayout': [
+            {
+                'length': 44,
+                'flags': 0,
+                'showCmd': 1,
+                'minPosition': {
+                    'X': -1,
+                    'Y': -1
+                },
+                'maxPosition': {
+                    'X': -1,
+                    'Y': -1
+                },
+                'normalPosition': {
+                    'Left': 980,
+                    'Top': 371,
+                    'Right': 1745,
+                    'Bottom': 737
+                }
+            }
+        ]
+    }
+]
+
+configuration = {
+    'Settings': settings,
+    'BehaviorGroups': behavior_groups
+}
+
+# print(xml.serialize_to_string(settings_processor, settings, indent='    '))
+# print(xml.serialize_to_string(behavior_groups_processor, behavior_groups, indent='    '))
+print(xml.serialize_to_string(configuration_processor, configuration, indent='    '))
