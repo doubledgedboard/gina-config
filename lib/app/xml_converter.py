@@ -164,9 +164,58 @@ behavior_groups_processor = xml.array(
     ]),
     nested='BehaviorGroups')
 
+#   <Categories>
+#     <Category>
+#       <IsDefault>True</IsDefault>
+#       <Name>Default (Yellow)</Name>
+#       <TextOverlay>Default</TextOverlay>
+#       <TextStyle>
+#         <FontColor>#FFFFFF00</FontColor>
+#         <ShadowColor>#FF000000</ShadowColor>
+#         <ShadowDepth>5</ShadowDepth>
+#         <TimerBarColor>#FF800000</TimerBarColor>
+#       </TextStyle>
+#       <TextStyleSource>None</TextStyleSource>
+#       <TimerOverlay>Self Buffs</TimerOverlay>
+#       <TimerStyle>
+#         <FontColor>#FFFFFF00</FontColor>
+#         <ShadowColor>#FF000000</ShadowColor>
+#         <ShadowDepth>5</ShadowDepth>
+#         <TimerBarColor>#FF800000</TimerBarColor>
+#       </TimerStyle>
+#       <TimerStyleSource>None</TimerStyleSource>
+#     </Category>
+
+_category_style = [
+    xml.string('FontColor'),
+    xml.string('ShadowColor'),
+    xml.integer('ShadowDepth'),
+    xml.string('TimerBarColor')
+]
+
+categories_processor = xml.array(
+    xml.dictionary('Category', [
+        xml.boolean('IsDefault'),
+        xml.string('Name'),
+        xml.string('TextOverlay'),
+        xml.dictionary('TextStyle', _category_style),
+        xml.string('TextStyleSource'),
+        xml.string('TimerOverlay'),
+        xml.dictionary('TimerStyle', _category_style),
+        xml.string('TimerStyleSource')
+    ]),
+    nested='Categories')
+
+# <Configuration>
+#   <Settings/>
+#   <BehaviorGroups/>
+#   <Categories/>
+# </Configuration>
+
 configuration_processor = xml.dictionary('Configuration', [
     settings_processor,
-    behavior_groups_processor
+    behavior_groups_processor,
+    categories_processor
 ])
 
 settings = {
@@ -255,9 +304,33 @@ behavior_groups = [
     }
 ]
 
+categories = [
+    {
+        'IsDefault': True,
+        'Name': 'Default (Yellow)',
+        'TextOverlay': 'Default',
+        'TextStyle': {
+            'FontColor': '#FFFFFF00',
+            'ShadowColor': '#FF000000',
+            'ShadowDepth': 5,
+            'TimerBarColor': '#FF800000'
+        },
+        'TextStyleSource': 'None',
+        'TimerOverlay': 'Self Buffs',
+        'TimerStyle': {
+            'FontColor': '#FFFFFF00',
+            'ShadowColor': '#FF000000',
+            'ShadowDepth': 5,
+            'TimerBarColor': '#FF800000'
+        },
+        'TimerStyleSource': 'None'
+    }
+]
+
 configuration = {
     'Settings': settings,
-    'BehaviorGroups': behavior_groups
+    'BehaviorGroups': behavior_groups,
+    'Categories': categories
 }
 
 # print(xml.serialize_to_string(settings_processor, settings, indent='    '))
