@@ -4,11 +4,17 @@ from enum import Enum
 class ColorPalette(Enum):
     BRIGHT_YELLOW = '#FFFFFF00'
     BRIGHT_RED = '#FFFF0000'
+    BRIGHT_BLUE = '#FF0000FF'
     DARK_AQUA = '#FF008AA5'
     DARK_PINK = '#FFE20085'
     DARK_PURPLE = '#FF990099'
     DARK_BROWN = '#FF874219'
     DARK_BLUE = '#FF0048AF'
+    DARK_RED = '#FF800002'
+    DARK_ORANGE = '#FFC17003'
+    DARK_GREEN = '#FF006D00'
+    DARK_GREY = '#FF7A7A7A'
+    DARK_YELLOW = '#FFB5A809'
     LIGHT_BLUE = '#FF697CC1'
 
     def __str__(self):
@@ -31,6 +37,16 @@ ABSORB_EFFECT_COLOR = ColorPalette.DARK_BROWN
 MANA_EFFECT_COLOR = ColorPalette.DARK_BLUE
 LULL_EFFECT_COLOR = ColorPalette.DARK_BLUE
 HEAL_EFFECT_COLOR = ColorPalette.LIGHT_BLUE
+DETRIMENTAL_EFFECT_COLOR = ColorPalette.DARK_RED
+DOT_EFFECT_COLOR = ColorPalette.DARK_ORANGE
+STAT_EFFECT_COLOR = ColorPalette.DARK_ORANGE
+HASTE_EFFECT_COLOR = ColorPalette.DARK_GREEN
+RESIST_EFFECT_COLOR = ColorPalette.DARK_RED
+VISION_EFFECT_COLOR = ColorPalette.DARK_GREY
+HC_AC_EFFECT_COLOR = ColorPalette.DARK_YELLOW
+
+EFFECT_WORN_OFF_COLOR = ColorPalette.BRIGHT_BLUE
+EFFECT_COOLDOWN_COLOR = ColorPalette.BRIGHT_BLUE
 
 
 OVERLAY_FONT_NAME = 'Arial Black'
@@ -374,34 +390,13 @@ categories = [
         },
         'TimerStyleSource': 'None'
     },
-    # Right // Green (Beneficial Effect)
-    {
-        'IsDefault': False,
-        'Name': 'Right // Green (Beneficial Effect)',
-        'TextOverlay': 'Critical Alerts',
-        'TextStyle': {
-            'FontColor': '#FF008000',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF800000'
-        },
-        'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
-        'TimerStyle': {
-            'FontColor': '#FFDDDDDD',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF006800'
-        },
-        'TimerStyleSource': 'None'
-    },
     # Right // Blue (Cooldown)
     {
         'IsDefault': False,
         'Name': 'Right // Blue (Cooldown)',
         'TextOverlay': 'Critical Alerts',
         'TextStyle': {
-            'FontColor': '#FF0000FF',
+            'FontColor': EFFECT_COOLDOWN_COLOR,
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
             'TimerBarColor': '#FF800000'
@@ -412,7 +407,7 @@ categories = [
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF0000FF'
+            'TimerBarColor': EFFECT_COOLDOWN_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -433,7 +428,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF800002'
+            'TimerBarColor': DETRIMENTAL_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -454,28 +449,7 @@ categories = [
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF0000FF'
-        },
-        'TimerStyleSource': 'None'
-    },
-    # Right // Blue (Self Beneficial Effect)
-    {
-        'IsDefault': False,
-        'Name': 'Right // Blue (Self Beneficial Effect)',
-        'TextOverlay': 'Critical Alerts',
-        'TextStyle': {
-            'FontColor': '#FFFFFF00',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF800000'
-        },
-        'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
-        'TimerStyle': {
-            'FontColor': '#FFB5B5B5',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF0000C9'
+            'TimerBarColor': EFFECT_WORN_OFF_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -512,12 +486,12 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Buffs',
+        'TimerOverlay': 'Short Duration Debuffs',
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF680001'
+            'TimerBarColor': DETRIMENTAL_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -580,7 +554,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF006D00'
+            'TimerBarColor': HASTE_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -664,7 +638,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FFC17003'
+            'TimerBarColor': DOT_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -685,7 +659,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF8C1600'
+            'TimerBarColor': RESIST_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -706,7 +680,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FFC17003'
+            'TimerBarColor': STAT_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -769,7 +743,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF006D00'
+            'TimerBarColor': HASTE_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -811,7 +785,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF006D00'
+            'TimerBarColor': HASTE_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -874,7 +848,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FFC17003'
+            'TimerBarColor': STAT_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -895,7 +869,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FFB5A809'
+            'TimerBarColor': HC_AC_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -916,7 +890,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF8C1600'
+            'TimerBarColor': RESIST_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -958,7 +932,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF7A7A7A'
+            'TimerBarColor': VISION_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -1000,7 +974,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FFB5A809'
+            'TimerBarColor': HC_AC_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -1063,7 +1037,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF8C1600'
+            'TimerBarColor': RESIST_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -1084,7 +1058,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FFC17003'
+            'TimerBarColor': STAT_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -1126,7 +1100,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FF7A7A7A'
+            'TimerBarColor': VISION_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -1252,7 +1226,7 @@ categories = [
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
-            'TimerBarColor': '#FFC17003'
+            'TimerBarColor': DOT_EFFECT_COLOR
         },
         'TimerStyleSource': 'None'
     },
@@ -1571,13 +1545,13 @@ categories = [
     #     },
     #     'TimerStyleSource': 'None'
     # },
-    # # Highlighted Default (Red)
+    # # Highlighted Default (Debuff)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Red)',
+    #     'Name': 'Highlighted Default (Debuff)',
     #     'TextOverlay': 'Default',
     #     'TextStyle': {
-    #         'FontColor': '#FF680001',
+    #         'FontColor': DETRIMENTAL_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
     #         'ShadowDepth': 5,
     #         'TimerBarColor': '#FF800000'
