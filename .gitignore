@@ -1,3 +1,4 @@
 *.pyc
 .venv/
 .mypy_cache/
+GINAConfig.xml

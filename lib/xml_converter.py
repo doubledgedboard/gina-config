@@ -81,7 +81,8 @@ settings_processor = xml.dictionary(
             [
                 xml.string('ActualWord'),
                 xml.string('PhoneticWord')
-            ]),
+            ],
+            required=False),
             nested='PhoneticTransforms'),
         xml.integer('ProcessorAffinity'),
         xml.integer('ProfilerRefreshInterval'),
@@ -466,242 +467,22 @@ configuration_processor = xml.dictionary(
     [
         settings_processor,
         behavior_groups_processor,
-        categories_processor,
-        trigger_groups_processor,
-        characters_processor
+        # categories_processor,
+        # trigger_groups_processor,
+        # characters_processor
     ])
 
-settings = {
-    'AcceptShareLevel': 'Anybody',
-    'AllowGamTextTriggerShares': True,
-    'AllowSharedPackages': True,
-    'ArchiveLogs': True,
-    'ArchivePurgeDaysToKeep': 365,
-    'AutoMergeShareLevel': 'Nobody',
-    'AutoUpdate': True,
-    'CheckLibraryAtStartup': False,
-    'CompressArchivedLogs': True,
-    'CTagClipboardReplacement': '{C}',
-    'DisplayMatches': True,
-    'EnableDebugLog': False,
-    'EnableSound': True,
-    'EnableText': True,
-    'EnableTimers': True,
-    'EverquestFolder': 'D:\\GAMES\\EverQuest',
-    'ImportedMediaFileFolder':
-        'C:\\Users\\foo\\AppData\\Local\\GimaSoft\\GINA\\ImportedMediaFiles',
-    'LogArchiveFolder': 'D:\\GAMES\\EverQuest\\Logs\\Archive',
-    'LogArchiveMethod': 'BySize',
-    'LogArchiveSchedule': 'Monthly',
-    'LogArchiveThresholdSize': 104857600,
-    'LogMatchesToFile': False,
-    'MasterVolume': 100,
-    'MatchDisplayLimit': 100,
-    'MatchLogFileName': '',
-    'MinimizeToSystemTray': False,
-    'PhoneticTransforms': [
-        {
-            'ActualWord': 'Foo',
-            'PhoneticWord': 'Foo'
-        },
-        {
-            'ActualWord': 'Bar',
-            'PhoneticWord': 'Bar'
-        }
-    ],
-    'ProcessorAffinity': 4095,
-    'ProfilerRefreshInterval': 30,
-    'PurgeArchivedLogs': False,
-    'ReferenceToSelf': 'You',
-    'RepositoryLastViewed': '1/15/2018 10:50:08 PM -06:00',
-    'ShareServiceUri': 'https://eq.gimasoft.com/GINAServices/Package.svc',
-    'ShareWhiteList': [],
-    'StopSearchingAfterFirstMatch': False
-}
 
-behavior_groups = [
-    {
-        'BackgroundColor': '#00000000',
-        'BackgroundFadedColor': '#00000000',
-        'BehaviorType': 'Text',
-        'EmptyBarColor': '#D0000000',
-        'FontName': 'Arial Black',
-        'FontSize': 22,
-        'GroupByCharacter': True,
-        'Name': 'Default',
-        'ShowTimerBar': True,
-        'SortMethod': 'OrderTriggered',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Left': 980,
-                    'Top': 371,
-                    'Right': 1745,
-                    'Bottom': 737
-                }
-            }
-        ]
-    }
-]
+def export_to_string(gina_config) -> str:
+    return xml.serialize_to_string(
+        configuration_processor,
+        gina_config,
+        indent='  ')
 
-categories = [
-    {
-        'IsDefault': True,
-        'Name': 'Default (Yellow)',
-        'TextOverlay': 'Default',
-        'TextStyle': {
-            'FontColor': '#FFFFFF00',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF800000'
-        },
-        'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
-        'TimerStyle': {
-            'FontColor': '#FFFFFF00',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF800000'
-        },
-        'TimerStyleSource': 'None'
-    }
-]
 
-trigger_groups = [
-    {
-        'Comments': '',
-        'EnableByDefault': False,
-        'GroupId': 3,
-        'Name': 'Class',
-        'SelfCommented': False,
-        'TriggerGroups': [
-            {
-                'Comments': '',
-                'EnableByDefault': False,
-                'GroupId': 6,
-                'Name': 'Enchanter',
-                'SelfCommented': False,
-                'TriggerGroups': [
-                    {
-                        'Comments': '',
-                        'EnableByDefault': False,
-                        'GroupId': 9,
-                        'Name': 'Buffs',
-                        'SelfCommented': False,
-                        'Triggers': [
-                            {
-                                'Category': 'Right // HP/AC Buffs',
-                                'ClipboardText': '',
-                                'Comments': '',
-                                'CopyToClipboard': False,
-                                'CounterResetDuration': 0,
-                                'DisplayText': '',
-                                'EnableRegex': True,
-                                'InterruptSpeech': False,
-                                'Modified': '2017-11-24T12:47:39',
-                                'Name': 'Armor of Faith - Other',
-                                'PlayMediaFile': False,
-                                'RestartBasedOnTimerName': True,
-                                'TextToVoiceText': '',
-                                'TimerDuration': 3780,
-                                'TimerEarlyEnders': [
-                                    {
-                                        'EarlyEndText': '^{c} lets go of external concerns\.$',
-                                        'EnableRegex': True
-                                    },
-                                    {
-                                        'EarlyEndText': '^{c} lets go of {s}\'s concerns\.$',
-                                        'EnableRegex': True
-                                    }
-                                ],
-                                'TimerEndingTime': 300,
-                                'TimerEndedTrigger': {
-                                    'DisplayText': 'Armor of Faith wore off on {s}',
-                                    'InterruptSpeech': False,
-                                    'PlayMediaFile': False,
-                                    'TextToVoiceText': 'Armor of Faith wore off on {s}',
-                                    'UseText': True,
-                                    'UseTextToVoice': True
-                                },
-                                'TimerEndingTrigger': {
-                                    'DisplayText': '5 min left on Armor of Faith - {s}',
-                                    'InterruptSpeech': False,
-                                    'PlayMediaFile': False,
-                                    'TextToVoiceText': '5 min left on Armor of Faith - {s}',
-                                    'UseText': True,
-                                    'UseTextToVoice': True
-                                },
-                                'TimerMillisecondDuration': 3780000,
-                                'TimerName': 'Armor of Faith - {s}',
-                                'TimerStartBehavior': 'RestartTimer',
-                                'TimerType': 'Timer',
-                                'TimerVisibleDuration': 0,
-                                'TriggerText': '^{s} feels the favor of the gods upon them\.$',
-                                'UseCounterResetTimer': False,
-                                'UseFastCheck': False,
-                                'UseText': False,
-                                'UseTextToVoice': False,
-                                'UseTimerEnded': True,
-                                'UseTimerEnding': True,
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-]
-
-characters = [
-    {
-        'AutoMonitor': True,
-        'DisplayName': 'Freckie (project)',
-        'LastArchiveDate': '0001-01-01T00:00:00',
-        'LogFilePath': 'D:\\GAMES\\EverQuest\\Logs\\eqlog_Freckie_project1999.txt',
-        'Name': 'Freckie',
-        'TextStyle': {
-            'FontColor': '#FFFFFF00',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF800000',
-        },
-        'TimerStyle': {
-            'FontColor': '#FFFFFF00',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF800000',
-        },
-        'TriggerGroups': [
-            9
-        ],
-        'VoiceName': 'Microsoft Zira Desktop',
-        'VoiceSpeed': 0,
-        'Volume': 48
-    }
-]
-
-configuration = {
-    'Settings': settings,
-    'BehaviorGroups': behavior_groups,
-    'Categories': categories,
-    'TriggerGroups': trigger_groups,
-    'Characters': characters
-}
-
-# print(xml.serialize_to_string(settings_processor, settings, indent='    '))
-# print(xml.serialize_to_string(behavior_groups_processor, behavior_groups, indent='    '))
-print(xml.serialize_to_string(configuration_processor, configuration, indent='    '))
-xml.serialize_to_file(configuration_processor, configuration, xml_file_path='GINA.xml', indent='    ')
+def export_to_file(gina_config, file_path) -> None:
+    return xml.serialize_to_file(
+        configuration_processor,
+        gina_config,
+        xml_file_path=file_path,
+        indent='  ')
