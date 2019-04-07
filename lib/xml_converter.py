@@ -467,7 +467,7 @@ configuration_processor = xml.dictionary(
     [
         settings_processor,
         behavior_groups_processor,
-        # categories_processor,
+        categories_processor,
         # trigger_groups_processor,
         # characters_processor
     ])

@@ -141,10 +141,20 @@ def dump_gina_config() -> None:
 
 
 @action_step('exporting gina config to file')
-def save_gina_config() -> None:
+def save_gina_config(file_path) -> None:
     xml_converter.export_to_file(
         gina_config.configuration,
-        'GINAConfig.xml')
+        file_path)
+
+
+@output_step('launching gina')
+def launch_gina(gina_path) -> None:
+    import os
+    os.execvp('rundll32.exe', [
+        'rundll32.exe',
+        'dfshim.dll,ShOpenVerbShortcut',
+        gina_path
+    ])
 
 
 def main():
@@ -155,8 +165,10 @@ def main():
     update_gina_config_settings(config['settings'])
     update_gina_config_behavior_groups(config['overlays'])
     # dump_gina_config()
-    save_gina_config()
 
+    save_gina_config(config['settings']['config_file_path'])
+
+    launch_gina(config['settings']['gina_file_path'])
 
     # gina_settings = generate_gina_settings(settings)
     # gina_behavior_groups = generate_gina_behavior_groups(settings)
