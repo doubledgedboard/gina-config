@@ -1,4 +1,8 @@
 from enum import Enum
+from typing import Optional
+
+
+from . import xml_converter
 
 
 class ColorPalette(Enum):
@@ -1589,7 +1593,40 @@ categories = [
     }
 ]
 
-trigger_groups = []
+trigger_groups = [
+    {
+        'Comments': '',
+        'EnableByDefault': False,
+        'GroupId': 1,
+        'Name': 'Spells',
+        'SelfCommented': False,
+        'TriggerGroups': [
+            {
+                'Comments': '',
+                'EnableByDefault': False,
+                'GroupId': 2,
+                'Name': 'Buffs',
+                'SelfCommented': False,
+                'TriggerGroups': [
+                    {
+                        'Comments': '',
+                        'EnableByDefault': False,
+                        'GroupId': 4,
+                        'Name': 'HP / AC',
+                        'SelfCommented': False
+                    }
+                ]
+            },
+            {
+                'Comments': '',
+                'EnableByDefault': False,
+                'GroupId': 3,
+                'Name': 'Debuffs',
+                'SelfCommented': False
+            }
+        ]
+    }
+]
 
 # trigger_groups = [
 #     {
@@ -1710,14 +1747,9 @@ configuration = {
     'Settings': settings,
     'BehaviorGroups': behavior_groups,
     'Categories': categories,
-    # 'TriggerGroups': trigger_groups,
+    'TriggerGroups': trigger_groups,
     # 'Characters': characters
 }
-
-# print(xml.serialize_to_string(settings_processor, settings, indent='    '))
-# print(xml.serialize_to_string(behavior_groups_processor, behavior_groups, indent='    '))
-# print(xml.serialize_to_string(configuration_processor, configuration, indent='    '))
-# xml.serialize_to_file(configuration_processor, configuration, xml_file_path='GINA.xml', indent='    ')
 
 
 def _get_behavior_group_by_name_and_type(
@@ -1751,3 +1783,32 @@ def set_behavior_group_position(behavior_group, position) -> None:
         position['right'])
     behavior_group['WindowLayout'][0]['normalPosition']['Top'] = (
         position['top'])
+
+
+def export_to_string() -> str:
+    return xml_converter.export_to_string(
+        configuration)
+
+
+def save_to_file(file_path) -> None:
+    xml_converter.export_to_file(
+        configuration,
+        file_path)
+
+
+def _find_trigger_group_by_name(name, trigger_groups) -> Optional[dict]:
+    for trigger_group in trigger_groups:
+        if 'GroupId' in trigger_group:
+            if trigger_group['Name'] == name:
+                return trigger_group
+            if 'TriggerGroups' in trigger_group:
+                _trigger_group = _find_trigger_group_by_name(
+                    name,
+                    trigger_group['TriggerGroups'])
+                if _trigger_group is not None:
+                    return _trigger_group
+    return None
+
+
+def get_trigger_group_by_name(name) -> Optional[dict]:
+    return _find_trigger_group_by_name(name, trigger_groups)

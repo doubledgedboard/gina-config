@@ -1,15 +1,7 @@
 import json
-from typing import NamedTuple, Union
+from typing import Union
 
-from lib import xml_converter, gina_config
-
-
-class Character(NamedTuple):
-    name: str
-    class_name: str
-    enabled: bool
-    level: int
-    log_file_path: str
+from lib import gina_config, overlays, settings, spellbook
 
 
 def action_step(description):
@@ -34,7 +26,7 @@ def output_step(description):
     return decorator
 
 
-def load_json_file_from_disk(json_file_path: str) -> Union[dict, list]:
+def _load_json_file_from_disk(json_file_path: str) -> Union[dict, list]:
     with open(json_file_path, 'r') as json_file:
         json_file_contents = json.load(json_file)
     return json_file_contents
@@ -42,118 +34,46 @@ def load_json_file_from_disk(json_file_path: str) -> Union[dict, list]:
 
 @action_step('loading config file')
 def load_config() -> dict:
-    return load_json_file_from_disk('data/config.json')
+    return _load_json_file_from_disk('data/config.json')
 
 
 @action_step('loading spells file')
 def load_spells() -> list:
-    return load_json_file_from_disk('data/spells.json')
+    return _load_json_file_from_disk('data/spells.json')
 
 
-@action_step('updating gina config settings')
-def update_gina_config_settings(settings) -> None:
-    # update gina config settings
-    gina_config.settings['EverquestFolder'] = settings['everquest_folder']
-    gina_config.settings['ImportedMediaFileFolder'] = (
-        settings['imported_media_file_folder'])
-    gina_config.settings['LogArchiveFolder'] = settings['log_archive_folder']
+@action_step('updating settings')
+def update_settings(config) -> None:
+    settings.update_settings(config['settings'])
 
 
-def _set_behavior_group_font_size_and_position(
-        behavior_group_and_overlay_pair) -> None:
-    gina_config.set_behavior_group_font_size(
-        behavior_group_and_overlay_pair[0],
-        behavior_group_and_overlay_pair[1]['font_size'])
-    gina_config.set_behavior_group_position(
-        behavior_group_and_overlay_pair[0],
-        behavior_group_and_overlay_pair[1]['position'])
+@action_step('updating behavior groups')
+def update_behavior_groups(config) -> None:
+    overlays.update_behavior_groups(config['overlays'])
 
 
-def _set_behavior_groups_font_size_and_position(
-        behavior_group_and_overlay_pairs) -> None:
-    for behavior_group_and_overlay_pair in behavior_group_and_overlay_pairs:
-        _set_behavior_group_font_size_and_position(
-            behavior_group_and_overlay_pair)
-
-
-def _collect_behavior_groups_for_overlays(overlays) -> list:
-    behavior_group_and_overlay_pairs = []
-    for text_overlay in overlays['text']:
-        behavior_group_and_overlay_pairs.append((
-                gina_config.get_text_behavior_group_by_name(
-                    text_overlay['name']),
-                text_overlay))
-    for timer_overlay in overlays['timer']:
-        behavior_group_and_overlay_pairs.append((
-                gina_config.get_timer_behavior_group_by_name(
-                    timer_overlay['name']),
-                timer_overlay))
-    return behavior_group_and_overlay_pairs
-
-
-@action_step('updating gina config behavior groups')
-def update_gina_config_behavior_groups(overlays) -> None:
-    behavior_group_and_overlay_pairs = (
-        _collect_behavior_groups_for_overlays(overlays))
-    _set_behavior_groups_font_size_and_position(
-        behavior_group_and_overlay_pairs)
-
-
-def get_character(characters: list, character_name: str) -> Character:
-    character = [character
-                 for character
-                 in characters
-                 if character['name'] == character_name][0]
-    return Character(
-        character['name'],
-        character['class'],
-        character['enabled'],
-        character['level'],
-        character['log_file_path'])
-
-
-def dump_character(characters: list, character_name: str) -> None:
-    character = get_character(characters, character_name)
-    print('Character')
-    print(f'  Name: {character.name}')
-    print(f'  Class: {character.class_name}')
-    print(f'  Enabled: {character.enabled}')
-    print(f'  Level: {character.level}')
-    print(f'  Log File Path: {character.log_file_path}')
-
-
-@action_step('assembling gina config')
-def assemble_gina_config(gina_settings) -> dict:
-    return {
-        'Settings': gina_settings,
-        'BehaviorGroups': None,
-        'Categories': None,
-        'TriggerGroups': None,
-        'Characters': None
-    }
+@action_step('updating trigger groups')
+def update_trigger_groups(config, spells) -> None:
+    spellbook.add_trigger_groups_for_characters(config['characters'], spells)
 
 
 @output_step('dumping gina config to output')
 def dump_gina_config() -> None:
-    print(
-        xml_converter.export_to_string(
-            gina_config.configuration))
+    print(gina_config.export_to_string())
 
 
 @action_step('exporting gina config to file')
-def save_gina_config(file_path) -> None:
-    xml_converter.export_to_file(
-        gina_config.configuration,
-        file_path)
+def save_gina_config(config) -> None:
+    gina_config.save_to_file(config['settings']['config_file_path'])
 
 
 @output_step('launching gina')
-def launch_gina(gina_path) -> None:
+def launch_gina(config) -> None:
     import os
     os.execvp('rundll32.exe', [
         'rundll32.exe',
         'dfshim.dll,ShOpenVerbShortcut',
-        gina_path
+        config['settings']['gina_file_path']
     ])
 
 
@@ -162,19 +82,15 @@ def main():
     config = load_config()
     spells = load_spells()
 
-    update_gina_config_settings(config['settings'])
-    update_gina_config_behavior_groups(config['overlays'])
-    # dump_gina_config()
+    update_settings(config)
+    update_behavior_groups(config)
+    update_trigger_groups(config, spells)
 
-    save_gina_config(config['settings']['config_file_path'])
+    print(gina_config.get_trigger_group_by_name('HP / AC'))
 
-    launch_gina(config['settings']['gina_file_path'])
+    # save_gina_config(config)
 
-    # gina_settings = generate_gina_settings(settings)
-    # gina_behavior_groups = generate_gina_behavior_groups(settings)
-    # gina_config = assemble_gina_config(gina_settings)
-    # xml_config = export_gina_config_to_string(gina_config)
-    # dump_character(settings['characters'], 'Xarslik')
+    # launch_gina(config)
 
 
 if __name__ == "__main__":

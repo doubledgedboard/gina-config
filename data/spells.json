@@ -1,7 +1,11 @@
 [
     {
         "name": "Invisibility versus Undead",
-        "type": "buff",
+        "type": "Beneficial",
+        "buff_effects": [
+            "invis_vs_undead"
+        ],
+        "debuff_effects": [],
         "min_level": 1,
         "max_level": 9,
         "duration_min_seconds": 120,
@@ -10,11 +14,11 @@
         "cast_on_other": "^{target} fades a little\\.$",
         "wears_off": "^Your skin stops tingling\\.$",
         "classes": {
-            "cleric": 14,
-            "enchanter": 16,
-            "necromancer": 1,
-            "paladin": 22,
-            "shadow_knight": 9
+            "Cleric": 14,
+            "Enchanter": 16,
+            "Necromancer": 1,
+            "Paladin": 22,
+            "Shadow Knight": 9
         }
     }
 ]
