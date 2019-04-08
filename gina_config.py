@@ -86,7 +86,7 @@ def main():
     update_behavior_groups(config)
     update_trigger_groups(config, spells)
 
-    print(gina_config.get_trigger_group_by_name('HP / AC'))
+    print('foo')
 
     # save_gina_config(config)
 

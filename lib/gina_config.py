@@ -1593,36 +1593,33 @@ categories = [
     }
 ]
 
+SPELLS_GROUP_ID = 1
+BUFFS_GROUP_ID = 2
+DEBUFFS_GROUP_ID = 3
+
 trigger_groups = [
     {
         'Comments': '',
         'EnableByDefault': False,
-        'GroupId': 1,
+        'GroupId': SPELLS_GROUP_ID,
         'Name': 'Spells',
         'SelfCommented': False,
         'TriggerGroups': [
             {
                 'Comments': '',
                 'EnableByDefault': False,
-                'GroupId': 2,
+                'GroupId': BUFFS_GROUP_ID,
                 'Name': 'Buffs',
                 'SelfCommented': False,
-                'TriggerGroups': [
-                    {
-                        'Comments': '',
-                        'EnableByDefault': False,
-                        'GroupId': 4,
-                        'Name': 'HP / AC',
-                        'SelfCommented': False
-                    }
-                ]
+                'TriggerGroups': []
             },
             {
                 'Comments': '',
                 'EnableByDefault': False,
-                'GroupId': 3,
+                'GroupId': DEBUFFS_GROUP_ID,
                 'Name': 'Debuffs',
-                'SelfCommented': False
+                'SelfCommented': False,
+                'TriggerGroups': []
             }
         ]
     }
@@ -1797,12 +1794,30 @@ def save_to_file(file_path) -> None:
 
 
 def _find_trigger_group_by_name(name, trigger_groups) -> Optional[dict]:
+    return next((trigger_group
+                for trigger_group
+                in trigger_groups
+                if 'GroupId' in trigger_group
+                and trigger_group['Name'] == name), None)
+
+
+def _find_trigger_group_by_id(id, trigger_groups) -> Optional[dict]:
+    return next((trigger_group
+                for trigger_group
+                in trigger_groups
+                if 'GroupId' in trigger_group
+                and trigger_group['GroupId'] == id), None)
+
+
+def _recursive_find_trigger_group_by_name(
+        name,
+        trigger_groups) -> Optional[dict]:
     for trigger_group in trigger_groups:
         if 'GroupId' in trigger_group:
             if trigger_group['Name'] == name:
                 return trigger_group
             if 'TriggerGroups' in trigger_group:
-                _trigger_group = _find_trigger_group_by_name(
+                _trigger_group = _recursive_find_trigger_group_by_name(
                     name,
                     trigger_group['TriggerGroups'])
                 if _trigger_group is not None:
@@ -1810,5 +1825,86 @@ def _find_trigger_group_by_name(name, trigger_groups) -> Optional[dict]:
     return None
 
 
+def _recursive_find_trigger_group_by_id(
+        id,
+        trigger_groups) -> Optional[dict]:
+    for trigger_group in trigger_groups:
+        if 'GroupId' in trigger_group:
+            if trigger_group['GroupId'] == id:
+                return trigger_group
+            if 'TriggerGroups' in trigger_group:
+                _trigger_group = _recursive_find_trigger_group_by_id(
+                    id,
+                    trigger_group['TriggerGroups'])
+                if _trigger_group is not None:
+                    return _trigger_group
+    return None
+
+
+def _recursive_get_trigger_group_ids(trigger_groups) -> list:
+    trigger_group_ids = []
+    for trigger_group in trigger_groups:
+        if 'GroupId' in trigger_group:
+            trigger_group_ids.append(trigger_group['GroupId'])
+            if 'TriggerGroups' in trigger_group:
+                _trigger_group_ids = (
+                    _recursive_get_trigger_group_ids(
+                        trigger_group['TriggerGroups']))
+                trigger_group_ids.extend(_trigger_group_ids)
+    return trigger_group_ids
+
+
 def get_trigger_group_by_name(name) -> Optional[dict]:
-    return _find_trigger_group_by_name(name, trigger_groups)
+    return _recursive_find_trigger_group_by_name(name, trigger_groups)
+
+
+def get_trigger_group_by_id(id) -> Optional[dict]:
+    return _recursive_find_trigger_group_by_id(id, trigger_groups)
+
+
+def get_buffs_trigger_group() -> dict:
+    return get_trigger_group_by_id(BUFFS_GROUP_ID)
+
+
+def get_debuffs_trigger_group() -> dict:
+    return get_trigger_group_by_id(DEBUFFS_GROUP_ID)
+
+
+def get_buff_trigger_group_by_name(name) -> Optional[dict]:
+    return _find_trigger_group_by_name(
+        name,
+        get_buffs_trigger_group()['TriggerGroups'])
+
+
+def get_debuff_trigger_group_by_name(name) -> Optional[dict]:
+    return _find_trigger_group_by_name(
+        name,
+        get_debuffs_trigger_group()['TriggerGroups'])
+
+
+def _get_next_available_group_id(trigger_group_ids: list) -> int:
+    _trigger_group_ids = trigger_group_ids.copy()
+    _trigger_group_ids.sort()
+    for trigger_group_id in _trigger_group_ids:
+        if trigger_group_id + 1 not in _trigger_group_ids:
+            return trigger_group_id + 1
+    return 1
+
+
+def get_next_available_group_id() -> int:
+    return _get_next_available_group_id(
+        _recursive_get_trigger_group_ids(trigger_groups))
+
+
+def generate_trigger_group(group_id, name) -> dict:
+    return {
+        'Comments': '',
+        'EnableByDefault': False,
+        'GroupId': group_id,
+        'Name': name,
+        'SelfCommented': False,
+    }
+
+
+def add_buff_trigger_group(trigger_group) -> None:
+    get_buffs_trigger_group()['TriggerGroups'].append(trigger_group)
