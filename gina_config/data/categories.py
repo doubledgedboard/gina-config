@@ -1,362 +1,103 @@
-from enum import Enum
-from typing import Optional
+# local
+from names.categories import \
+    CRITICAL_ALERTS_CATEGORY, \
+    DEFAULT_ALERTS_CATEGORY, \
+    AQUA_ALERTS_CATEGORY, \
+    GREEN_ALERTS_CATEGORY, \
+    ORANGE_ALERTS_CATEGORY, \
+    RED_ALERTS_CATEGORY, \
+    ABSORB_ALERTS_CATEGORY, \
+    DEBUFF_ALERTS_CATEGORY, \
+    DS_ALERTS_CATEGORY, \
+    HEAL_ALERTS_CATEGORY, \
+    MEZ_ALERTS_CATEGORY, \
+    ROOT_ALERTS_CATEGORY, \
+    SLOW_ALERTS_CATEGORY, \
+    SNARE_ALERTS_CATEGORY, \
+    CHARM_EFFECT_CATEGORY, \
+    DETRIMENTAL_EFFECT_CATEGORY, \
+    DOT_EFFECT_CATEGORY, \
+    LULL_EFFECT_CATEGORY, \
+    MEZ_EFFECT_CATEGORY, \
+    ROOT_EFFECT_CATEGORY, \
+    SLOW_EFFECT_CATEGORY, \
+    SNARE_EFFECT_CATEGORY, \
+    ABSORB_BUFFS_CATEGORY, \
+    DS_BUFFS_CATEGORY, \
+    HASTE_BUFFS_CATEGORY, \
+    HP_AC_BUFFS_CATEGORY, \
+    ILLUSION_BUFFS_CATEGORY, \
+    MANA_BUFFS_CATEGORY, \
+    REGEN_BUFFS_CATEGORY, \
+    RESIST_BUFFS_CATEGORY, \
+    STAT_BUFFS_CATEGORY, \
+    TRAVEL_BUFFS_CATEGORY, \
+    VISION_BUFFS_CATEGORY, \
+    SELF_ABSORB_BUFFS_CATEGORY, \
+    SELF_DS_BUFFS_CATEGORY, \
+    SELF_HASTE_BUFFS_CATEGORY, \
+    SELF_HP_AC_BUFFS_CATEGORY, \
+    SELF_ILLUSION_BUFFS_CATEGORY, \
+    SELF_MANA_BUFFS_CATEGORY, \
+    SELF_REGEN_BUFFS_CATEGORY, \
+    SELF_RESIST_BUFFS_CATEGORY, \
+    SELF_STAT_BUFFS_CATEGORY, \
+    SELF_TRAVEL_BUFFS_CATEGORY, \
+    SELF_VISION_BUFFS_CATEGORY, \
+    SELF_WORN_OFF_BUFFS_CATEGORY, \
+    SHORT_DURATION_CHARM_CATEGORY, \
+    SHORT_DURATION_DEBUFFS_CATEGORY, \
+    SHORT_DURATION_DOT_AOE_CATEGORY, \
+    SHORT_DURATION_LULL_CATEGORY, \
+    SHORT_DURATION_MEZ_CATEGORY, \
+    SHORT_DURATION_SLOW_CATEGORY, \
+    SHORT_DURATION_SNARE_CATEGORY, \
+    SHORT_DURATION_HASTE_BUFFS_CATEGORY, \
+    SHORT_DURATION_MANA_BUFFS_CATEGORY, \
+    SHORT_DURATION_REGEN_BUFFS_CATEGORY, \
+    SHORT_DURATION_RESIST_BUFFS_CATEGORY, \
+    SHORT_DURATION_STAT_BUFFS_CATEGORY, \
+    SHORT_DURATION_TRAVEL_BUFFS_CATEGORY
+from names.overlays import \
+    CRITICAL_ALERTS_OVERLAY, \
+    DEBUFFS_OVERLAY, \
+    DEFAULT_OVERLAY, \
+    OTHER_BUFFS_OVERLAY, \
+    SELF_BUFFS_OVERLAY, \
+    SHORT_DURATION_BUFFS_OVERLAY, \
+    SHORT_DURATION_DEBUFFS_OVERLAY
+from colors import \
+    CRITICAL_ALERT_COLOR, \
+    DEFAULT_ALERT_COLOR, \
+    ABSORB_EFFECT_COLOR, \
+    CHARM_EFFECT_COLOR, \
+    DAMAGE_SHIELD_EFFECT_COLOR, \
+    DETRIMENTAL_EFFECT_COLOR, \
+    DOT_EFFECT_COLOR, \
+    HASTE_EFFECT_COLOR, \
+    HC_AC_EFFECT_COLOR, \
+    HEAL_EFFECT_COLOR, \
+    ILLUSION_EFFECT_COLOR, \
+    LULL_EFFECT_COLOR, \
+    MANA_EFFECT_COLOR, \
+    MEZ_EFFECT_COLOR, \
+    MOVEMENT_SPEED_EFFECT_COLOR, \
+    REGEN_EFFECT_COLOR, \
+    RESIST_EFFECT_COLOR, \
+    ROOT_EFFECT_COLOR, \
+    SLOW_EFFECT_COLOR, \
+    SNARE_EFFECT_COLOR, \
+    STAT_EFFECT_COLOR, \
+    VISION_EFFECT_COLOR, \
+    EFFECT_WORN_OFF_COLOR
 
-
-from . import xml_converter
-
-
-class ColorPalette(Enum):
-    BRIGHT_YELLOW = '#FFFFFF00'
-    BRIGHT_RED = '#FFFF0000'
-    BRIGHT_BLUE = '#FF0000FF'
-    DARK_AQUA = '#FF008AA5'
-    DARK_PINK = '#FFE20085'
-    DARK_PURPLE = '#FF990099'
-    DARK_BROWN = '#FF874219'
-    DARK_BLUE = '#FF0048AF'
-    DARK_RED = '#FF800002'
-    DARK_ORANGE = '#FFC17003'
-    DARK_GREEN = '#FF006D00'
-    DARK_GREY = '#FF7A7A7A'
-    DARK_YELLOW = '#FFB5A809'
-    LIGHT_BLUE = '#FF697CC1'
-
-    def __str__(self):
-        return self.value
-
-
-DEFAULT_ALERT_COLOR = ColorPalette.BRIGHT_YELLOW
-CRITICAL_ALERT_COLOR = ColorPalette.BRIGHT_RED
-
-CHARM_EFFECT_COLOR = ColorPalette.DARK_AQUA
-REGEN_EFFECT_COLOR = ColorPalette.DARK_AQUA
-MEZ_EFFECT_COLOR = ColorPalette.DARK_PINK
-ILLUSION_EFFECT_COLOR = ColorPalette.DARK_PINK
-SNARE_EFFECT_COLOR = ColorPalette.DARK_PURPLE
-SLOW_EFFECT_COLOR = ColorPalette.DARK_PURPLE
-MOVEMENT_SPEED_EFFECT_COLOR = ColorPalette.DARK_PURPLE
-ROOT_EFFECT_COLOR = ColorPalette.DARK_BROWN
-DAMAGE_SHIELD_EFFECT_COLOR = ColorPalette.DARK_BROWN
-ABSORB_EFFECT_COLOR = ColorPalette.DARK_BROWN
-MANA_EFFECT_COLOR = ColorPalette.DARK_BLUE
-LULL_EFFECT_COLOR = ColorPalette.DARK_BLUE
-HEAL_EFFECT_COLOR = ColorPalette.LIGHT_BLUE
-DETRIMENTAL_EFFECT_COLOR = ColorPalette.DARK_RED
-DOT_EFFECT_COLOR = ColorPalette.DARK_ORANGE
-STAT_EFFECT_COLOR = ColorPalette.DARK_ORANGE
-HASTE_EFFECT_COLOR = ColorPalette.DARK_GREEN
-RESIST_EFFECT_COLOR = ColorPalette.DARK_RED
-VISION_EFFECT_COLOR = ColorPalette.DARK_GREY
-HC_AC_EFFECT_COLOR = ColorPalette.DARK_YELLOW
-
-EFFECT_WORN_OFF_COLOR = ColorPalette.BRIGHT_BLUE
-EFFECT_COOLDOWN_COLOR = ColorPalette.BRIGHT_BLUE
-
-
-OVERLAY_FONT_NAME = 'Arial Black'
-
-settings = {
-    'AcceptShareLevel': 'Anybody',
-    'AllowGamTextTriggerShares': True,
-    'AllowSharedPackages': True,
-    'ArchiveLogs': True,
-    'ArchivePurgeDaysToKeep': 365,
-    'AutoMergeShareLevel': 'Nobody',
-    'AutoUpdate': False,
-    'CheckLibraryAtStartup': False,
-    'CompressArchivedLogs': True,
-    'CTagClipboardReplacement': '{C}',
-    'DisplayMatches': True,
-    'EnableDebugLog': False,
-    'EnableSound': True,
-    'EnableText': True,
-    'EnableTimers': True,
-    'EverquestFolder': None,  # 'D:\\GAMES\\EverQuest',
-    'ImportedMediaFileFolder': None,  # 'C:\\Users\\foo\\AppData\\Local\\GimaSoft\\GINA\\ImportedMediaFiles',
-    'LogArchiveFolder': 'D:\\GAMES\\EverQuest\\Logs\\Archive',
-    'LogArchiveMethod': 'BySize',
-    'LogArchiveSchedule': 'Monthly',
-    'LogArchiveThresholdSize': 1024000,
-    'LogMatchesToFile': False,
-    'MasterVolume': 100,
-    'MatchDisplayLimit': 100,
-    'MatchLogFileName': '',
-    'MinimizeToSystemTray': False,
-    'PhoneticTransforms': [],
-    # 'PhoneticTransforms': [
-    #     {
-    #         'ActualWord': 'Foo',
-    #         'PhoneticWord': 'Foo'
-    #     },
-    #     {
-    #         'ActualWord': 'Bar',
-    #         'PhoneticWord': 'Bar'
-    #     }
-    # ]
-    'ProcessorAffinity': 4095,
-    'ProfilerRefreshInterval': 30,
-    'PurgeArchivedLogs': False,
-    'ReferenceToSelf': 'You',
-    'RepositoryLastViewed': '1/15/2018 10:50:08 PM -06:00',
-    'ShareServiceUri': 'https://eq.gimasoft.com/GINAServices/Package.svc',
-    'ShareWhiteList': [],
-    'StopSearchingAfterFirstMatch': False
-}
-
-behavior_groups = [
-    {
-        'BackgroundColor': '#00FFFFFF',
-        'BackgroundFadedColor': '#00FFFFFF',
-        'BehaviorType': 'Text',
-        'EmptyBarColor': '#C4000000',
-        'FontName': OVERLAY_FONT_NAME,
-        'FontSize': None,  # 30
-        'GroupByCharacter': False,
-        'Name': 'Critical Alerts',
-        'ShowTimerBar': True,
-        'SortMethod': 'OrderTriggered',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Bottom': None,
-                    'Left': None,
-                    'Right': None,
-                    'Top': None
-                }
-            }
-        ]
-    },
-    {
-        'BackgroundColor': '#00000000',
-        'BackgroundFadedColor': '#00000000',
-        'BehaviorType': 'Text',
-        'EmptyBarColor': '#D0000000',
-        'FontName': OVERLAY_FONT_NAME,
-        'FontSize': None,  # 22
-        'GroupByCharacter': True,
-        'Name': 'Default',
-        'ShowTimerBar': True,
-        'SortMethod': 'OrderTriggered',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Bottom': None,
-                    'Left': None,
-                    'Right': None,
-                    'Top': None
-                }
-            }
-        ]
-    },
-    {
-        'BackgroundColor': '#00000000',
-        'BackgroundFadedColor': '#00000000',
-        'BehaviorType': 'Timer',
-        'EmptyBarColor': '#C4000000',
-        'FontName': OVERLAY_FONT_NAME,
-        'FontSize': None,  # 14
-        'GroupByCharacter': False,
-        'Name': 'Debuffs',
-        'ShowTimerBar': True,
-        'SortMethod': 'TimeRemaining',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Bottom': None,
-                    'Left': None,
-                    'Right': None,
-                    'Top': None
-                }
-            }
-        ]
-    },
-    {
-        'BackgroundColor': '#00000000',
-        'BackgroundFadedColor': '#00000000',
-        'BehaviorType': 'Timer',
-        'EmptyBarColor': '#C4000000',
-        'FontName': OVERLAY_FONT_NAME,
-        'FontSize': None,  # 13
-        'GroupByCharacter': False,
-        'Name': 'Other Buffs',
-        'ShowTimerBar': True,
-        'SortMethod': 'TimeRemaining',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Bottom': None,
-                    'Left': None,
-                    'Right': None,
-                    'Top': None
-                }
-            }
-        ]
-    },
-    {
-        'BackgroundColor': '#00000000',
-        'BackgroundFadedColor': '#00000000',
-        'BehaviorType': 'Timer',
-        'EmptyBarColor': '#C4000000',
-        'FontName': OVERLAY_FONT_NAME,
-        'FontSize': None,  # 13
-        'GroupByCharacter': False,
-        'Name': 'Self Buffs',
-        'ShowTimerBar': True,
-        'SortMethod': 'TimeRemaining',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Bottom': None,
-                    'Left': None,
-                    'Right': None,
-                    'Top': None
-                }
-            }
-        ]
-    },
-    {
-        'BackgroundColor': '#00000000',
-        'BackgroundFadedColor': '#00FFFFFF',
-        'BehaviorType': 'Timer',
-        'EmptyBarColor': '#C4000000',
-        'FontName': OVERLAY_FONT_NAME,
-        'FontSize': None,  # 18
-        'GroupByCharacter': False,
-        'Name': 'Short Duration Buffs',
-        'ShowTimerBar': True,
-        'SortMethod': 'OrderTriggered',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Bottom': None,
-                    'Left': None,
-                    'Right': None,
-                    'Top': None
-                }
-            }
-        ]
-    },
-    {
-        'BackgroundColor': '#00000000',
-        'BackgroundFadedColor': '#00000000',
-        'BehaviorType': 'Timer',
-        'EmptyBarColor': '#C4000000',
-        'FontName': OVERLAY_FONT_NAME,
-        'FontSize': None,  # 17
-        'GroupByCharacter': False,
-        'Name': 'Short Duration Debuffs',
-        'ShowTimerBar': True,
-        'SortMethod': 'OrderTriggered',
-        'StandardizeTimerBars': False,
-        'TextFadeTime': 10,
-        'WindowLayout': [
-            {
-                'length': 44,
-                'flags': 0,
-                'showCmd': 1,
-                'minPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'maxPosition': {
-                    'X': -1,
-                    'Y': -1
-                },
-                'normalPosition': {
-                    'Bottom': None,
-                    'Left': None,
-                    'Right': None,
-                    'Top': None
-                }
-            }
-        ]
-    }
-]
 
 categories = [
     # Default
     {
         'IsDefault': True,
-        'Name': 'Default',
-        'TextOverlay': 'Default',
+        'Name': DEFAULT_ALERTS_CATEGORY,
+        'TextOverlay': DEFAULT_OVERLAY,
         'TextStyle': {
             'FontColor': DEFAULT_ALERT_COLOR,
             'ShadowColor': '#FF000000',
@@ -364,7 +105,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': DEFAULT_ALERT_COLOR,
             'ShadowColor': '#FF000000',
@@ -376,8 +117,8 @@ categories = [
     # Critical Alerts
     {
         'IsDefault': False,
-        'Name': 'Critical Alerts',
-        'TextOverlay': 'Critical Alerts',
+        'Name': CRITICAL_ALERTS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': CRITICAL_ALERT_COLOR,
             'ShadowColor': '#FF000000',
@@ -385,41 +126,20 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': CRITICAL_ALERT_COLOR,
             'ShadowColor': '#FF000000',
             'ShadowDepth': 5,
             'TimerBarColor': '#FF800000'
-        },
-        'TimerStyleSource': 'None'
-    },
-    # Right // Blue (Cooldown)
-    {
-        'IsDefault': False,
-        'Name': 'Right // Blue (Cooldown)',
-        'TextOverlay': 'Critical Alerts',
-        'TextStyle': {
-            'FontColor': EFFECT_COOLDOWN_COLOR,
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': '#FF800000'
-        },
-        'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
-        'TimerStyle': {
-            'FontColor': '#FFFFFF00',
-            'ShadowColor': '#FF000000',
-            'ShadowDepth': 5,
-            'TimerBarColor': EFFECT_COOLDOWN_COLOR
         },
         'TimerStyleSource': 'None'
     },
     # Left // Detrimental Effect
     {
         'IsDefault': False,
-        'Name': 'Left // Detrimental Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': DETRIMENTAL_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -427,7 +147,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -439,8 +159,8 @@ categories = [
     # Right // Self Worn Off Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Worn Off Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_WORN_OFF_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -448,7 +168,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -460,8 +180,8 @@ categories = [
     # Middle // Short Duration Mana Buffs
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Mana Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_MANA_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -469,7 +189,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Buffs',
+        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -481,8 +201,8 @@ categories = [
     # Middle // Short Duration Debuffs
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Debuffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_DEBUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -490,7 +210,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Debuffs',
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -502,8 +222,8 @@ categories = [
     # Middle // Short Duration Travel Buffs
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Travel Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_TRAVEL_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -511,7 +231,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Buffs',
+        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -523,8 +243,8 @@ categories = [
     # Middle // Short Duration Regen Buffs
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Regen Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_REGEN_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -532,7 +252,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Buffs',
+        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -544,8 +264,8 @@ categories = [
     # Middle // Short Duration Haste Buffs
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Haste Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_HASTE_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -553,7 +273,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Buffs',
+        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -565,8 +285,8 @@ categories = [
     # Middle // Short Duration Slow
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Slow',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_SLOW_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -574,7 +294,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Debuffs',
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFDBDBDB',
             'ShadowColor': '#FF000000',
@@ -586,8 +306,8 @@ categories = [
     # Middle // Short Duration Snare
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Snare',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_SNARE_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -595,7 +315,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Debuffs',
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFDBDBDB',
             'ShadowColor': '#FF000000',
@@ -607,8 +327,8 @@ categories = [
     # Middle // Short Duration Charm
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Charm',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_CHARM_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -616,7 +336,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Debuffs',
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -628,8 +348,8 @@ categories = [
     # Middle // Short Duration DoT AoE
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration DoT AoE',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_DOT_AOE_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -637,7 +357,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Debuffs',
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -649,8 +369,8 @@ categories = [
     # Middle // Short Duration Resist Buffs
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Resist Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_RESIST_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -658,7 +378,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Buffs',
+        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -670,8 +390,8 @@ categories = [
     # Middle // Short Duration Stat Buffs
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Stat Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_STAT_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -679,7 +399,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Buffs',
+        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -691,8 +411,8 @@ categories = [
     # Left // Charm Effect
     {
         'IsDefault': False,
-        'Name': 'Left // Charm Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': CHARM_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -700,7 +420,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -712,8 +432,8 @@ categories = [
     # Left // Mez Effect
     {
         'IsDefault': False,
-        'Name': 'Left // Mez Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': MEZ_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -721,7 +441,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -733,8 +453,8 @@ categories = [
     # Right // Self Haste Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Haste Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_HASTE_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -742,7 +462,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -754,8 +474,8 @@ categories = [
     # Right // Self Mana Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Mana Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_MANA_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -763,7 +483,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -775,8 +495,8 @@ categories = [
     # Right // Haste Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Haste Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': HASTE_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -784,7 +504,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -796,8 +516,8 @@ categories = [
     # Right // Self Regen Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Regen Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_REGEN_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -805,7 +525,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -817,8 +537,8 @@ categories = [
     # Right // Regen Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Regen Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': REGEN_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -826,7 +546,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -838,8 +558,8 @@ categories = [
     # Right // Self Stat Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Stat Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_STAT_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -847,7 +567,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -859,8 +579,8 @@ categories = [
     # Right // Self HP/AC Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self HP/AC Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_HP_AC_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -868,7 +588,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -880,8 +600,8 @@ categories = [
     # Right // Self Resist Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Resist Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_RESIST_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -889,7 +609,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -901,8 +621,8 @@ categories = [
     # Right // Self Travel Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Travel Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_TRAVEL_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -910,7 +630,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -922,8 +642,8 @@ categories = [
     # Right // Self Vision Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Vision Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_VISION_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -931,7 +651,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -943,8 +663,8 @@ categories = [
     # Right // Self Illusion Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Illusion Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_ILLUSION_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -952,7 +672,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -964,8 +684,8 @@ categories = [
     # Right // HP/AC Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // HP/AC Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': HP_AC_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -973,7 +693,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -985,8 +705,8 @@ categories = [
     # Right // Illusion Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Illusion Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': ILLUSION_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -994,7 +714,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1006,8 +726,8 @@ categories = [
     # Right // Mana Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Mana Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': MANA_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1015,7 +735,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1027,8 +747,8 @@ categories = [
     # Right // Resist Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Resist Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': RESIST_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1036,7 +756,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1048,8 +768,8 @@ categories = [
     # Right // Stat Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Stat Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': STAT_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1057,7 +777,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1069,8 +789,8 @@ categories = [
     # Right // Travel Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Travel Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': TRAVEL_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1078,7 +798,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1090,8 +810,8 @@ categories = [
     # Right // Vision Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Vision Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': VISION_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1099,7 +819,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1111,8 +831,8 @@ categories = [
     # Middle // Short Duration Mez
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Mez',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_MEZ_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1120,7 +840,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Debuffs',
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1132,8 +852,8 @@ categories = [
     # Right // Self DS Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self DS Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_DS_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1141,7 +861,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1153,8 +873,8 @@ categories = [
     # Right // Self Absorb Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Self Absorb Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SELF_ABSORB_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1162,7 +882,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Self Buffs',
+        'TimerOverlay': SELF_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1174,8 +894,8 @@ categories = [
     # Right // DS Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // DS Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': DS_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1183,7 +903,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1195,8 +915,8 @@ categories = [
     # Right // Absorb Buffs
     {
         'IsDefault': False,
-        'Name': 'Right // Absorb Buffs',
-        'TextOverlay': 'Critical Alerts',
+        'Name': ABSORB_BUFFS_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1204,7 +924,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Other Buffs',
+        'TimerOverlay': OTHER_BUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1216,8 +936,8 @@ categories = [
     # Left // DoT Effect
     {
         'IsDefault': False,
-        'Name': 'Left // DoT Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': DOT_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -1225,7 +945,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1237,8 +957,8 @@ categories = [
     # Left // Slow Effect
     {
         'IsDefault': False,
-        'Name': 'Left // Slow Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SLOW_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -1246,7 +966,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1258,8 +978,8 @@ categories = [
     # Left // Snare Effect
     {
         'IsDefault': False,
-        'Name': 'Left // Snare Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SNARE_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -1267,7 +987,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1279,8 +999,8 @@ categories = [
     # Left // Root Effect
     {
         'IsDefault': False,
-        'Name': 'Left // Root Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': ROOT_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -1288,7 +1008,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1300,8 +1020,8 @@ categories = [
     # Left // Lull Effect
     {
         'IsDefault': False,
-        'Name': 'Left // Lull Effect',
-        'TextOverlay': 'Critical Alerts',
+        'Name': LULL_EFFECT_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -1309,7 +1029,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Debuffs',
+        'TimerOverlay': DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1321,8 +1041,8 @@ categories = [
     # # Highlighted Default (Bright Green)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Bright Green)',
-    #     'TextOverlay': 'Default',
+    #     'Name': GREEN_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': '#FF21FF00',
     #         'ShadowColor': '#FF000000',
@@ -1330,7 +1050,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1342,8 +1062,8 @@ categories = [
     # # Highlighted Default (Bright Orange)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Bright Orange)',
-    #     'TextOverlay': 'Default',
+    #     'Name': ORANGE_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': '#FFFFA500',
     #         'ShadowColor': '#FF000000',
@@ -1351,7 +1071,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1363,8 +1083,8 @@ categories = [
     # # Highlighted Default (Bright Red)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Bright Red)',
-    #     'TextOverlay': 'Default',
+    #     'Name': RED_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': '#FFFF0000',
     #         'ShadowColor': '#FF000000',
@@ -1372,7 +1092,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1384,8 +1104,8 @@ categories = [
     # # Highlighted Default (Aqua)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Aqua)',
-    #     'TextOverlay': 'Default',
+    #     'Name': AQUA_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': ColorPalette.DARK_AQUA,
     #         'ShadowColor': '#FF000000',
@@ -1393,7 +1113,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1405,8 +1125,8 @@ categories = [
     # # Highlighted Default (Root)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Root)',
-    #     'TextOverlay': 'Default',
+    #     'Name': ROOT_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': ROOT_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1414,7 +1134,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1426,8 +1146,8 @@ categories = [
     # # Highlighted Default (DS)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (DS)',
-    #     'TextOverlay': 'Default',
+    #     'Name': DS_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': DAMAGE_SHIELD_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1435,7 +1155,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1447,8 +1167,8 @@ categories = [
     # # Highlighted Default (Absorb)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Absorb)',
-    #     'TextOverlay': 'Default',
+    #     'Name': ABSORB_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': ABSORB_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1456,7 +1176,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1468,8 +1188,8 @@ categories = [
     # # Highlighted Default (Mez)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Mez)',
-    #     'TextOverlay': 'Default',
+    #     'Name': MEZ_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': MEZ_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1477,7 +1197,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1489,8 +1209,8 @@ categories = [
     # # Highlighted Default (Heal)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Heal)',
-    #     'TextOverlay': 'Default',
+    #     'Name': HEAL_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': HEAL_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1498,7 +1218,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1510,8 +1230,8 @@ categories = [
     # # Highlighted Default (Slow)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Slow)',
-    #     'TextOverlay': 'Default',
+    #     'Name': SLOW_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': SLOW_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1519,7 +1239,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1531,8 +1251,8 @@ categories = [
     # # Highlighted Default (Snare)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Snare)',
-    #     'TextOverlay': 'Default',
+    #     'Name': SNARE_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': SNARE_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1540,7 +1260,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1552,8 +1272,8 @@ categories = [
     # # Highlighted Default (Debuff)
     # {
     #     'IsDefault': False,
-    #     'Name': 'Highlighted Default (Debuff)',
-    #     'TextOverlay': 'Default',
+    #     'Name': DEBUFF_ALERTS_CATEGORY,
+    #     'TextOverlay': DEFAULT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': DETRIMENTAL_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1561,7 +1281,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': 'Self Buffs',
+    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1573,8 +1293,8 @@ categories = [
     # Middle // Short Duration Lull
     {
         'IsDefault': False,
-        'Name': 'Middle // Short Duration Lull',
-        'TextOverlay': 'Critical Alerts',
+        'Name': SHORT_DURATION_LULL_CATEGORY,
+        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1582,7 +1302,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': 'Short Duration Debuffs',
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1592,319 +1312,3 @@ categories = [
         'TimerStyleSource': 'None'
     }
 ]
-
-SPELLS_GROUP_ID = 1
-BUFFS_GROUP_ID = 2
-DEBUFFS_GROUP_ID = 3
-
-trigger_groups = [
-    {
-        'Comments': '',
-        'EnableByDefault': False,
-        'GroupId': SPELLS_GROUP_ID,
-        'Name': 'Spells',
-        'SelfCommented': False,
-        'TriggerGroups': [
-            {
-                'Comments': '',
-                'EnableByDefault': False,
-                'GroupId': BUFFS_GROUP_ID,
-                'Name': 'Buffs',
-                'SelfCommented': False,
-                'TriggerGroups': []
-            },
-            {
-                'Comments': '',
-                'EnableByDefault': False,
-                'GroupId': DEBUFFS_GROUP_ID,
-                'Name': 'Debuffs',
-                'SelfCommented': False,
-                'TriggerGroups': []
-            }
-        ]
-    }
-]
-
-# trigger_groups = [
-#     {
-#         'Comments': '',
-#         'EnableByDefault': False,
-#         'GroupId': 3,
-#         'Name': 'Class',
-#         'SelfCommented': False,
-#         'TriggerGroups': [
-#             {
-#                 'Comments': '',
-#                 'EnableByDefault': False,
-#                 'GroupId': 6,
-#                 'Name': 'Enchanter',
-#                 'SelfCommented': False,
-#                 'TriggerGroups': [
-#                     {
-#                         'Comments': '',
-#                         'EnableByDefault': False,
-#                         'GroupId': 9,
-#                         'Name': 'Buffs',
-#                         'SelfCommented': False,
-#                         'Triggers': [
-#                             {
-#                                 'Category': 'Right // HP/AC Buffs',
-#                                 'ClipboardText': '',
-#                                 'Comments': '',
-#                                 'CopyToClipboard': False,
-#                                 'CounterResetDuration': 0,
-#                                 'DisplayText': '',
-#                                 'EnableRegex': True,
-#                                 'InterruptSpeech': False,
-#                                 'Modified': '2017-11-24T12:47:39',
-#                                 'Name': 'Armor of Faith - Other',
-#                                 'PlayMediaFile': False,
-#                                 'RestartBasedOnTimerName': True,
-#                                 'TextToVoiceText': '',
-#                                 'TimerDuration': 3780,
-#                                 'TimerEarlyEnders': [
-#                                     {
-#                                         'EarlyEndText': '^{c} lets go of external concerns\.$',
-#                                         'EnableRegex': True
-#                                     },
-#                                     {
-#                                         'EarlyEndText': '^{c} lets go of {s}\'s concerns\.$',
-#                                         'EnableRegex': True
-#                                     }
-#                                 ],
-#                                 'TimerEndingTime': 300,
-#                                 'TimerEndedTrigger': {
-#                                     'DisplayText': 'Armor of Faith wore off on {s}',
-#                                     'InterruptSpeech': False,
-#                                     'PlayMediaFile': False,
-#                                     'TextToVoiceText': 'Armor of Faith wore off on {s}',
-#                                     'UseText': True,
-#                                     'UseTextToVoice': True
-#                                 },
-#                                 'TimerEndingTrigger': {
-#                                     'DisplayText': '5 min left on Armor of Faith - {s}',
-#                                     'InterruptSpeech': False,
-#                                     'PlayMediaFile': False,
-#                                     'TextToVoiceText': '5 min left on Armor of Faith - {s}',
-#                                     'UseText': True,
-#                                     'UseTextToVoice': True
-#                                 },
-#                                 'TimerMillisecondDuration': 3780000,
-#                                 'TimerName': 'Armor of Faith - {s}',
-#                                 'TimerStartBehavior': 'RestartTimer',
-#                                 'TimerType': 'Timer',
-#                                 'TimerVisibleDuration': 0,
-#                                 'TriggerText': '^{s} feels the favor of the gods upon them\.$',
-#                                 'UseCounterResetTimer': False,
-#                                 'UseFastCheck': False,
-#                                 'UseText': False,
-#                                 'UseTextToVoice': False,
-#                                 'UseTimerEnded': True,
-#                                 'UseTimerEnding': True,
-#                             }
-#                         ]
-#                     }
-#                 ]
-#             }
-#         ]
-#     }
-# ]
-
-characters = []
-
-# characters = [
-#     {
-#         'AutoMonitor': True,
-#         'DisplayName': 'Freckie (project)',
-#         'LastArchiveDate': '0001-01-01T00:00:00',
-#         'LogFilePath': 'D:\\GAMES\\EverQuest\\Logs\\eqlog_Freckie_project1999.txt',
-#         'Name': 'Freckie',
-#         'TextStyle': {
-#             'FontColor': '#FFFFFF00',
-#             'ShadowColor': '#FF000000',
-#             'ShadowDepth': 5,
-#             'TimerBarColor': '#FF800000',
-#         },
-#         'TimerStyle': {
-#             'FontColor': '#FFFFFF00',
-#             'ShadowColor': '#FF000000',
-#             'ShadowDepth': 5,
-#             'TimerBarColor': '#FF800000',
-#         },
-#         'TriggerGroups': [
-#             9
-#         ],
-#         'VoiceName': 'Microsoft Zira Desktop',
-#         'VoiceSpeed': 0,
-#         'Volume': 48
-#     }
-# ]
-
-configuration = {
-    'Settings': settings,
-    'BehaviorGroups': behavior_groups,
-    'Categories': categories,
-    'TriggerGroups': trigger_groups,
-    # 'Characters': characters
-}
-
-
-def _get_behavior_group_by_name_and_type(
-        behavior_group_name,
-        behavior_group_type) -> dict:
-    return next(behavior_group
-                for behavior_group
-                in behavior_groups
-                if behavior_group['Name'] == behavior_group_name and
-                behavior_group['BehaviorType'] == behavior_group_type)
-
-
-def get_text_behavior_group_by_name(behavior_group_name) -> dict:
-    return _get_behavior_group_by_name_and_type(behavior_group_name, 'Text')
-
-
-def get_timer_behavior_group_by_name(behavior_group_name) -> dict:
-    return _get_behavior_group_by_name_and_type(behavior_group_name, 'Timer')
-
-
-def set_behavior_group_font_size(behavior_group, font_size) -> None:
-    behavior_group['FontSize'] = font_size
-
-
-def set_behavior_group_position(behavior_group, position) -> None:
-    behavior_group['WindowLayout'][0]['normalPosition']['Bottom'] = (
-        position['bottom'])
-    behavior_group['WindowLayout'][0]['normalPosition']['Left'] = (
-        position['left'])
-    behavior_group['WindowLayout'][0]['normalPosition']['Right'] = (
-        position['right'])
-    behavior_group['WindowLayout'][0]['normalPosition']['Top'] = (
-        position['top'])
-
-
-def export_to_string() -> str:
-    return xml_converter.export_to_string(
-        configuration)
-
-
-def save_to_file(file_path) -> None:
-    xml_converter.export_to_file(
-        configuration,
-        file_path)
-
-
-def _find_trigger_group_by_name(name, trigger_groups) -> Optional[dict]:
-    return next((trigger_group
-                for trigger_group
-                in trigger_groups
-                if 'GroupId' in trigger_group
-                and trigger_group['Name'] == name), None)
-
-
-def _find_trigger_group_by_id(id, trigger_groups) -> Optional[dict]:
-    return next((trigger_group
-                for trigger_group
-                in trigger_groups
-                if 'GroupId' in trigger_group
-                and trigger_group['GroupId'] == id), None)
-
-
-def _recursive_find_trigger_group_by_name(
-        name,
-        trigger_groups) -> Optional[dict]:
-    for trigger_group in trigger_groups:
-        if 'GroupId' in trigger_group:
-            if trigger_group['Name'] == name:
-                return trigger_group
-            if 'TriggerGroups' in trigger_group:
-                _trigger_group = _recursive_find_trigger_group_by_name(
-                    name,
-                    trigger_group['TriggerGroups'])
-                if _trigger_group is not None:
-                    return _trigger_group
-    return None
-
-
-def _recursive_find_trigger_group_by_id(
-        id,
-        trigger_groups) -> Optional[dict]:
-    for trigger_group in trigger_groups:
-        if 'GroupId' in trigger_group:
-            if trigger_group['GroupId'] == id:
-                return trigger_group
-            if 'TriggerGroups' in trigger_group:
-                _trigger_group = _recursive_find_trigger_group_by_id(
-                    id,
-                    trigger_group['TriggerGroups'])
-                if _trigger_group is not None:
-                    return _trigger_group
-    return None
-
-
-def _recursive_get_trigger_group_ids(trigger_groups) -> list:
-    trigger_group_ids = []
-    for trigger_group in trigger_groups:
-        if 'GroupId' in trigger_group:
-            trigger_group_ids.append(trigger_group['GroupId'])
-            if 'TriggerGroups' in trigger_group:
-                _trigger_group_ids = (
-                    _recursive_get_trigger_group_ids(
-                        trigger_group['TriggerGroups']))
-                trigger_group_ids.extend(_trigger_group_ids)
-    return trigger_group_ids
-
-
-def get_trigger_group_by_name(name) -> Optional[dict]:
-    return _recursive_find_trigger_group_by_name(name, trigger_groups)
-
-
-def get_trigger_group_by_id(id) -> Optional[dict]:
-    return _recursive_find_trigger_group_by_id(id, trigger_groups)
-
-
-def get_buffs_trigger_group() -> dict:
-    return get_trigger_group_by_id(BUFFS_GROUP_ID)
-
-
-def get_debuffs_trigger_group() -> dict:
-    return get_trigger_group_by_id(DEBUFFS_GROUP_ID)
-
-
-def get_buff_trigger_group_by_name(name) -> Optional[dict]:
-    return _find_trigger_group_by_name(
-        name,
-        get_buffs_trigger_group()['TriggerGroups'])
-
-
-def get_debuff_trigger_group_by_name(name) -> Optional[dict]:
-    return _find_trigger_group_by_name(
-        name,
-        get_debuffs_trigger_group()['TriggerGroups'])
-
-
-def _get_next_available_group_id(trigger_group_ids: list) -> int:
-    _trigger_group_ids = trigger_group_ids.copy()
-    _trigger_group_ids.sort()
-    for trigger_group_id in _trigger_group_ids:
-        if trigger_group_id + 1 not in _trigger_group_ids:
-            return trigger_group_id + 1
-    return 1
-
-
-def get_next_available_group_id() -> int:
-    return _get_next_available_group_id(
-        _recursive_get_trigger_group_ids(trigger_groups))
-
-
-def generate_trigger_group(group_id, name) -> dict:
-    return {
-        'Comments': '',
-        'EnableByDefault': False,
-        'GroupId': group_id,
-        'Name': name,
-        'SelfCommented': False,
-    }
-
-
-def add_buff_trigger_group(trigger_group) -> None:
-    get_buffs_trigger_group()['TriggerGroups'].append(trigger_group)

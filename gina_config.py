@@ -54,7 +54,8 @@ def update_behavior_groups(config) -> None:
 
 @action_step('updating trigger groups')
 def update_trigger_groups(config, spells) -> None:
-    spellbook.add_trigger_groups_for_characters(config['characters'], spells)
+    spellbook.add_character_levels_to_spells(config['characters'], spells)
+    spellbook.add_spells_to_trigger_groups(spells)
 
 
 @output_step('dumping gina config to output')
@@ -86,11 +87,11 @@ def main():
     update_behavior_groups(config)
     update_trigger_groups(config, spells)
 
-    print('foo')
+    # print('foo')
 
-    # save_gina_config(config)
+    save_gina_config(config)
 
-    # launch_gina(config)
+    launch_gina(config)
 
 
 if __name__ == "__main__":
