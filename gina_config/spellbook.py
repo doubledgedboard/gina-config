@@ -1,5 +1,24 @@
 from . import gina_config
+from utils.trigger_groups import add_trigger_group
 
+'''
+abstraction over trigger groups and triggers
+
+- each spell added to the book is either
+  a "buff" or a "debuff" (beneficial or detrimental)
+
+- each spell has a list of associated spell levels
+
+- each spell level has a trigger for "self" vs "others"
+
+- each spell trigger is scaled to the duration for that spell level
+
+- a special trigger for "worn off" is spell level 0
+'''
+
+def add_spell():
+    '''adds a spell to the spellbook'''
+    pass
 
 # filter spells list to spells for the character (Class / Level)
 # get_spells_for_characters (filter to enabled only)

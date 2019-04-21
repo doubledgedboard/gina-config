@@ -1,0 +1,1 @@
+& python gina_config.py

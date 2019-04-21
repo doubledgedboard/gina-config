@@ -1,7 +1,9 @@
-CRITICAL_ALERTS_OVERLAY = 'Critical Alerts'
-DEBUFFS_OVERLAY = 'Debuffs'
-DEFAULT_OVERLAY = 'Default'
-OTHER_BUFFS_OVERLAY = 'Other Buffs'
-SELF_BUFFS_OVERLAY = 'Self Buffs'
-SHORT_DURATION_BUFFS_OVERLAY = 'Short Duration Buffs'
-SHORT_DURATION_DEBUFFS_OVERLAY = 'Short Duration Debuffs'
+# text overlays
+CRITICAL_ALERTS_TEXT_OVERLAY = 'Critical Alerts'
+DEFAULT_TEXT_OVERLAY = 'Default'
+# timer overlays
+DEBUFFS_TIMER_OVERLAY = 'Debuffs'
+OTHER_BUFFS_TIMER_OVERLAY = 'Other Buffs'
+SELF_BUFFS_TIMER_OVERLAY = 'Self Buffs'
+SHORT_DURATION_BUFFS_TIMER_OVERLAY = 'Short Duration Buffs'
+SHORT_DURATION_DEBUFFS_TIMER_OVERLAY = 'Short Duration Debuffs'

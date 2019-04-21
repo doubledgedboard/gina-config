@@ -1,13 +1,13 @@
 # local
-from names.overlays import \
-    CRITICAL_ALERTS_OVERLAY, \
-    DEBUFFS_OVERLAY, \
-    DEFAULT_OVERLAY, \
-    OTHER_BUFFS_OVERLAY, \
-    SELF_BUFFS_OVERLAY, \
-    SHORT_DURATION_BUFFS_OVERLAY, \
-    SHORT_DURATION_DEBUFFS_OVERLAY
-from fonts import \
+from gina_config.names.overlays import \
+    CRITICAL_ALERTS_TEXT_OVERLAY, \
+    DEFAULT_TEXT_OVERLAY, \
+    DEBUFFS_TIMER_OVERLAY, \
+    OTHER_BUFFS_TIMER_OVERLAY, \
+    SELF_BUFFS_TIMER_OVERLAY, \
+    SHORT_DURATION_BUFFS_TIMER_OVERLAY, \
+    SHORT_DURATION_DEBUFFS_TIMER_OVERLAY
+from gina_config.fonts import \
     OVERLAY_FONT_NAME
 
 
@@ -20,7 +20,7 @@ behavior_groups = [
         'FontName': OVERLAY_FONT_NAME,
         'FontSize': None,  # 30
         'GroupByCharacter': False,
-        'Name': CRITICAL_ALERTS_OVERLAY,
+        'Name': CRITICAL_ALERTS_TEXT_OVERLAY,
         'ShowTimerBar': True,
         'SortMethod': 'OrderTriggered',
         'StandardizeTimerBars': False,
@@ -55,7 +55,7 @@ behavior_groups = [
         'FontName': OVERLAY_FONT_NAME,
         'FontSize': None,  # 22
         'GroupByCharacter': True,
-        'Name': DEFAULT_OVERLAY,
+        'Name': DEFAULT_TEXT_OVERLAY,
         'ShowTimerBar': True,
         'SortMethod': 'OrderTriggered',
         'StandardizeTimerBars': False,
@@ -90,7 +90,7 @@ behavior_groups = [
         'FontName': OVERLAY_FONT_NAME,
         'FontSize': None,  # 14
         'GroupByCharacter': False,
-        'Name': DEBUFFS_OVERLAY,
+        'Name': DEBUFFS_TIMER_OVERLAY,
         'ShowTimerBar': True,
         'SortMethod': 'TimeRemaining',
         'StandardizeTimerBars': False,
@@ -125,7 +125,7 @@ behavior_groups = [
         'FontName': OVERLAY_FONT_NAME,
         'FontSize': None,  # 13
         'GroupByCharacter': False,
-        'Name': OTHER_BUFFS_OVERLAY,
+        'Name': OTHER_BUFFS_TIMER_OVERLAY,
         'ShowTimerBar': True,
         'SortMethod': 'TimeRemaining',
         'StandardizeTimerBars': False,
@@ -160,7 +160,7 @@ behavior_groups = [
         'FontName': OVERLAY_FONT_NAME,
         'FontSize': None,  # 13
         'GroupByCharacter': False,
-        'Name': SELF_BUFFS_OVERLAY,
+        'Name': SELF_BUFFS_TIMER_OVERLAY,
         'ShowTimerBar': True,
         'SortMethod': 'TimeRemaining',
         'StandardizeTimerBars': False,
@@ -195,7 +195,7 @@ behavior_groups = [
         'FontName': OVERLAY_FONT_NAME,
         'FontSize': None,  # 18
         'GroupByCharacter': False,
-        'Name': SHORT_DURATION_BUFFS_OVERLAY,
+        'Name': SHORT_DURATION_BUFFS_TIMER_OVERLAY,
         'ShowTimerBar': True,
         'SortMethod': 'OrderTriggered',
         'StandardizeTimerBars': False,
@@ -230,7 +230,7 @@ behavior_groups = [
         'FontName': OVERLAY_FONT_NAME,
         'FontSize': None,  # 17
         'GroupByCharacter': False,
-        'Name': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'Name': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'ShowTimerBar': True,
         'SortMethod': 'OrderTriggered',
         'StandardizeTimerBars': False,

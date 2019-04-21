@@ -1,3 +1,12 @@
+from gina_config.names.settings import \
+    EVERQUEST_FOLDER_SETTING, \
+    IMPORTED_MEDIA_FILE_FOLDER_SETTING, \
+    LOG_ARCHIVE_FOLDER_SETTING
+
+
+# constants
+# ============================================================================
+
 settings = {
     'AcceptShareLevel': 'Anybody',
     'AllowGamTextTriggerShares': True,
@@ -14,9 +23,9 @@ settings = {
     'EnableSound': True,
     'EnableText': True,
     'EnableTimers': True,
-    'EverquestFolder': None,  # 'D:\\GAMES\\EverQuest',
-    'ImportedMediaFileFolder': None,  # 'C:\\Users\\foo\\AppData\\Local\\GimaSoft\\GINA\\ImportedMediaFiles',
-    'LogArchiveFolder': 'D:\\GAMES\\EverQuest\\Logs\\Archive',
+    EVERQUEST_FOLDER_SETTING: None,  # 'D:\\GAMES\\EverQuest',
+    IMPORTED_MEDIA_FILE_FOLDER_SETTING: None,  # 'C:\\Users\\foo\\AppData\\Local\\GimaSoft\\GINA\\ImportedMediaFiles',
+    LOG_ARCHIVE_FOLDER_SETTING: 'D:\\GAMES\\EverQuest\\Logs\\Archive',
     'LogArchiveMethod': 'BySize',
     'LogArchiveSchedule': 'Monthly',
     'LogArchiveThresholdSize': 1024000,

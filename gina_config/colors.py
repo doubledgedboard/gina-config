@@ -22,9 +22,11 @@ class ColorPalette(Enum):
         return self.value
 
 
+# alert colors
 CRITICAL_ALERT_COLOR = ColorPalette.BRIGHT_RED
 DEFAULT_ALERT_COLOR = ColorPalette.BRIGHT_YELLOW
 
+# effect colors
 ABSORB_EFFECT_COLOR = ColorPalette.DARK_BROWN
 CHARM_EFFECT_COLOR = ColorPalette.DARK_AQUA
 DAMAGE_SHIELD_EFFECT_COLOR = ColorPalette.DARK_BROWN
@@ -46,4 +48,5 @@ SNARE_EFFECT_COLOR = ColorPalette.DARK_PURPLE
 STAT_EFFECT_COLOR = ColorPalette.DARK_ORANGE
 VISION_EFFECT_COLOR = ColorPalette.DARK_GREY
 
+# status colors
 EFFECT_WORN_OFF_COLOR = ColorPalette.BRIGHT_BLUE

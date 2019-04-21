@@ -1,5 +1,5 @@
 # local
-from names.categories import \
+from gina_config.names.categories import \
     CRITICAL_ALERTS_CATEGORY, \
     DEFAULT_ALERTS_CATEGORY, \
     AQUA_ALERTS_CATEGORY, \
@@ -58,15 +58,15 @@ from names.categories import \
     SHORT_DURATION_RESIST_BUFFS_CATEGORY, \
     SHORT_DURATION_STAT_BUFFS_CATEGORY, \
     SHORT_DURATION_TRAVEL_BUFFS_CATEGORY
-from names.overlays import \
-    CRITICAL_ALERTS_OVERLAY, \
-    DEBUFFS_OVERLAY, \
-    DEFAULT_OVERLAY, \
-    OTHER_BUFFS_OVERLAY, \
-    SELF_BUFFS_OVERLAY, \
-    SHORT_DURATION_BUFFS_OVERLAY, \
-    SHORT_DURATION_DEBUFFS_OVERLAY
-from colors import \
+from gina_config.names.overlays import \
+    CRITICAL_ALERTS_TEXT_OVERLAY, \
+    DEFAULT_TEXT_OVERLAY, \
+    DEBUFFS_TIMER_OVERLAY, \
+    OTHER_BUFFS_TIMER_OVERLAY, \
+    SELF_BUFFS_TIMER_OVERLAY, \
+    SHORT_DURATION_BUFFS_TIMER_OVERLAY, \
+    SHORT_DURATION_DEBUFFS_TIMER_OVERLAY
+from gina_config.colors import \
     CRITICAL_ALERT_COLOR, \
     DEFAULT_ALERT_COLOR, \
     ABSORB_EFFECT_COLOR, \
@@ -97,7 +97,7 @@ categories = [
     {
         'IsDefault': True,
         'Name': DEFAULT_ALERTS_CATEGORY,
-        'TextOverlay': DEFAULT_OVERLAY,
+        'TextOverlay': DEFAULT_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': DEFAULT_ALERT_COLOR,
             'ShadowColor': '#FF000000',
@@ -105,7 +105,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': DEFAULT_ALERT_COLOR,
             'ShadowColor': '#FF000000',
@@ -118,7 +118,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': CRITICAL_ALERTS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': CRITICAL_ALERT_COLOR,
             'ShadowColor': '#FF000000',
@@ -126,7 +126,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': CRITICAL_ALERT_COLOR,
             'ShadowColor': '#FF000000',
@@ -139,7 +139,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': DETRIMENTAL_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -147,7 +147,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -160,7 +160,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_WORN_OFF_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -168,7 +168,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -181,7 +181,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_MANA_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -189,7 +189,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -202,7 +202,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_DEBUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -210,7 +210,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -223,7 +223,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_TRAVEL_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -231,7 +231,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -244,7 +244,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_REGEN_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -252,7 +252,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -265,7 +265,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_HASTE_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -273,7 +273,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -286,7 +286,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_SLOW_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -294,7 +294,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFDBDBDB',
             'ShadowColor': '#FF000000',
@@ -307,7 +307,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_SNARE_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -315,7 +315,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFDBDBDB',
             'ShadowColor': '#FF000000',
@@ -328,7 +328,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_CHARM_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -336,7 +336,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -349,7 +349,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_DOT_AOE_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -357,7 +357,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -370,7 +370,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_RESIST_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -378,7 +378,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -391,7 +391,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_STAT_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -399,7 +399,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_BUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -412,7 +412,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': CHARM_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -420,7 +420,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -433,7 +433,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': MEZ_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -441,7 +441,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -454,7 +454,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_HASTE_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -462,7 +462,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -475,7 +475,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_MANA_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -483,7 +483,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -496,7 +496,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': HASTE_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -504,7 +504,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -517,7 +517,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_REGEN_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -525,7 +525,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -538,7 +538,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': REGEN_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -546,7 +546,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -559,7 +559,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_STAT_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -567,7 +567,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -580,7 +580,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_HP_AC_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -588,7 +588,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -601,7 +601,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_RESIST_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -609,7 +609,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -622,7 +622,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_TRAVEL_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -630,7 +630,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -643,7 +643,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_VISION_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -651,7 +651,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -664,7 +664,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_ILLUSION_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -672,7 +672,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -685,7 +685,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': HP_AC_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -693,7 +693,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -706,7 +706,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': ILLUSION_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -714,7 +714,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -727,7 +727,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': MANA_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -735,7 +735,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -748,7 +748,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': RESIST_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -756,7 +756,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -769,7 +769,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': STAT_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -777,7 +777,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -790,7 +790,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': TRAVEL_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -798,7 +798,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -811,7 +811,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': VISION_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -819,7 +819,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -832,7 +832,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_MEZ_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -840,7 +840,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -853,7 +853,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_DS_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -861,7 +861,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -874,7 +874,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SELF_ABSORB_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -882,7 +882,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SELF_BUFFS_OVERLAY,
+        'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -895,7 +895,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': DS_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -903,7 +903,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -916,7 +916,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': ABSORB_BUFFS_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -924,7 +924,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': OTHER_BUFFS_OVERLAY,
+        'TimerOverlay': OTHER_BUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -937,7 +937,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': DOT_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -945,7 +945,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -958,7 +958,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SLOW_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -966,7 +966,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -979,7 +979,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SNARE_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -987,7 +987,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1000,7 +1000,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': ROOT_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -1008,7 +1008,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1021,7 +1021,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': LULL_EFFECT_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFF0000',
             'ShadowColor': '#FF000000',
@@ -1029,7 +1029,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': DEBUFFS_OVERLAY,
+        'TimerOverlay': DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
@@ -1042,7 +1042,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': GREEN_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': '#FF21FF00',
     #         'ShadowColor': '#FF000000',
@@ -1050,7 +1050,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1063,7 +1063,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': ORANGE_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': '#FFFFA500',
     #         'ShadowColor': '#FF000000',
@@ -1071,7 +1071,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1084,7 +1084,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': RED_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': '#FFFF0000',
     #         'ShadowColor': '#FF000000',
@@ -1092,7 +1092,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1105,7 +1105,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': AQUA_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': ColorPalette.DARK_AQUA,
     #         'ShadowColor': '#FF000000',
@@ -1113,7 +1113,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1126,7 +1126,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': ROOT_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': ROOT_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1134,7 +1134,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1147,7 +1147,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': DS_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': DAMAGE_SHIELD_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1155,7 +1155,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1168,7 +1168,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': ABSORB_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': ABSORB_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1176,7 +1176,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1189,7 +1189,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': MEZ_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': MEZ_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1197,7 +1197,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1210,7 +1210,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': HEAL_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': HEAL_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1218,7 +1218,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1231,7 +1231,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': SLOW_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': SLOW_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1239,7 +1239,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1252,7 +1252,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': SNARE_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': SNARE_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1260,7 +1260,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1273,7 +1273,7 @@ categories = [
     # {
     #     'IsDefault': False,
     #     'Name': DEBUFF_ALERTS_CATEGORY,
-    #     'TextOverlay': DEFAULT_OVERLAY,
+    #     'TextOverlay': DEFAULT_TEXT_OVERLAY,
     #     'TextStyle': {
     #         'FontColor': DETRIMENTAL_EFFECT_COLOR,
     #         'ShadowColor': '#FF000000',
@@ -1281,7 +1281,7 @@ categories = [
     #         'TimerBarColor': '#FF800000'
     #     },
     #     'TextStyleSource': 'None',
-    #     'TimerOverlay': SELF_BUFFS_OVERLAY,
+    #     'TimerOverlay': SELF_BUFFS_TIMER_OVERLAY,
     #     'TimerStyle': {
     #         'FontColor': '#FFFFFF00',
     #         'ShadowColor': '#FF000000',
@@ -1294,7 +1294,7 @@ categories = [
     {
         'IsDefault': False,
         'Name': SHORT_DURATION_LULL_CATEGORY,
-        'TextOverlay': CRITICAL_ALERTS_OVERLAY,
+        'TextOverlay': CRITICAL_ALERTS_TEXT_OVERLAY,
         'TextStyle': {
             'FontColor': '#FFFFFF00',
             'ShadowColor': '#FF000000',
@@ -1302,7 +1302,7 @@ categories = [
             'TimerBarColor': '#FF800000'
         },
         'TextStyleSource': 'None',
-        'TimerOverlay': SHORT_DURATION_DEBUFFS_OVERLAY,
+        'TimerOverlay': SHORT_DURATION_DEBUFFS_TIMER_OVERLAY,
         'TimerStyle': {
             'FontColor': '#FFFFFFFF',
             'ShadowColor': '#FF000000',
