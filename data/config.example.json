@@ -1,0 +1,73 @@
+{
+    "characters": [
+        {
+            "class": "Necromancer",
+            "enabled": true,
+            "level": 10,
+            "log_file_path": "D:\\GAMES\\EverQuest\\Logs\\eqlog_Foo_project1999.txt",
+            "name": "Foo"
+        }
+    ],
+    "overlays": {
+        "text": {
+            "Critical Alerts": {
+                "font_size": 30,
+                "bottom_position": 296,
+                "left_position": 265,
+                "right_position": 1634,
+                "top_position": 29
+            },
+            "Default": {
+                "font_size": 22,
+                "bottom_position": 737,
+                "left_position": 980,
+                "right_position": 1745,
+                "top_position": 371
+            }
+        },
+        "timer": {
+            "Debuffs" : {
+                "font_size": 14,
+                "bottom_position": 334,
+                "left_position": 171,
+                "right_position": 894,
+                "top_position": 6
+            },
+            "Other Buffs": {
+                "font_size": 13,
+                "bottom_position": 788,
+                "left_position": 1237,
+                "right_position": 1593,
+                "top_position": 4
+            },
+            "Self Buffs": {
+                "font_size": 13,
+                "bottom_position": 405,
+                "left_position": 1595,
+                "right_position": 1916,
+                "top_position": 4
+            },
+            "Short Duration Buffs": {
+                "font_size": 18,
+                "bottom_position": 665,
+                "left_position": 1231,
+                "right_position": 1741,
+                "top_position": 350
+            },
+            "Short Duration Debuffs": {
+                "font_size": 17,
+                "bottom_position": 666,
+                "left_position": 180,
+                "right_position": 689,
+                "top_position": 351
+            }
+        }
+    },
+    "settings": {
+        "everquest_folder_path": "D:\\GAMES\\EverQuest",
+        "everquest_log_archive_folder_path": "D:\\GAMES\\EverQuest\\Logs\\Archive",
+        "gina_application_file_path": "C:\\Users\\foo\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\GimaSoft\\GINA.appref-ms",
+        "gina_config_file_path": "C:\\Users\\foo\\AppData\\Local\\GimaSoft\\GINA\\GINAConfig.xml",
+        "gina_imported_media_file_folder_path": "C:\\Users\\foo\\AppData\\Local\\GimaSoft\\GINA\\ImportedMediaFiles"
+    }
+}
