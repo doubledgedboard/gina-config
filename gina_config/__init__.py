@@ -2,11 +2,10 @@
 from typing import Union
 import json
 
-# local public api
-from gina_config.settings import \
-    set_everquest_folder_path, \
-    set_imported_media_file_folder_path, \
-    set_log_archive_folder_path
+# local
+import gina_config.settings
+import gina_config.overlays
+import gina_config.xml_converter
 
 
 # decorators
@@ -44,28 +43,57 @@ def _load_json_file_from_disk(json_file_path: str) -> Union[dict, list]:
 
 
 @action_step('loading config file')
-def load_config() -> dict:
+def load_config_file() -> dict:
     return _load_json_file_from_disk('data/config.json')
 
 
 @action_step('loading spells file')
-def load_spells() -> list:
+def load_spells_file() -> list:
     return _load_json_file_from_disk('data/spells.json')
 
 
 @action_step('updating settings')
 def update_settings(config) -> None:
-    set_everquest_folder_path(
+    gina_config.settings.set_everquest_folder_path(
         config['settings']['everquest_folder_path'])
-    set_imported_media_file_folder_path(
+    gina_config.settings.set_imported_media_file_folder_path(
         config['settings']['gina_imported_media_file_folder_path'])
-    set_log_archive_folder_path(
+    gina_config.settings.set_log_archive_folder_path(
         config['settings']['everquest_log_archive_folder_path'])
 
 
-@action_step('updating behavior groups')
-def update_behavior_groups(config) -> None:
-    overlays.update_behavior_groups(config['overlays'])
+def _update_overlay_font_size_and_position(
+        overlay,
+        overlay_settings):
+    gina_config.overlays.set_overlay_font_size(
+        overlay_settings['font_size'],
+        overlay)
+    gina_config.overlays.set_overlay_bottom_position(
+        overlay_settings['bottom_position'],
+        overlay)
+    gina_config.overlays.set_overlay_left_position(
+        overlay_settings['left_position'],
+        overlay)
+    gina_config.overlays.set_overlay_right_position(
+        overlay_settings['right_position'],
+        overlay)
+    gina_config.overlays.set_overlay_top_position(
+        overlay_settings['top_position'],
+        overlay)
+
+
+@action_step('updating overlays')
+def update_overlays(config) -> None:
+    for overlay_name, overlay_settings in (
+            config['overlays']['text'].items()):
+        overlay = gina_config.overlays.get_text_overlay(overlay_name)
+        _update_overlay_font_size_and_position(
+            overlay, overlay_settings)
+    for overlay_name, overlay_settings in (
+            config['overlays']['timer'].items()):
+        overlay = gina_config.overlays.get_timer_overlay(overlay_name)
+        _update_overlay_font_size_and_position(
+            overlay, overlay_settings)
 
 
 @action_step('updating trigger groups')
@@ -76,12 +104,13 @@ def update_trigger_groups(config, spells) -> None:
 
 @output_step('dumping gina config to output')
 def dump_gina_config() -> None:
-    print(gina_config.export_to_string())
+    print(gina_config.xml_converter.export_to_string())
 
 
 @action_step('exporting gina config to file')
 def save_gina_config(config) -> None:
-    gina_config.save_to_file(config['settings']['config_file_path'])
+    gina_config.xml_converter.export_to_file(
+        config['settings']['gina_config_file_path'])
 
 
 @output_step('launching gina')
@@ -90,7 +119,7 @@ def launch_gina(config) -> None:
     os.execvp('rundll32.exe', [
         'rundll32.exe',
         'dfshim.dll,ShOpenVerbShortcut',
-        config['settings']['gina_file_path']
+        config['settings']['gina_application_file_path']
     ])
 
 
@@ -99,15 +128,16 @@ def launch_gina(config) -> None:
 
 def main():
     # load data files
-    config = load_config()
-    spells = load_spells()
+    config = load_config_file()
+    spells = load_spells_file()
 
     update_settings(config)
-    # update_behavior_groups(config)
+    update_overlays(config)
     # update_trigger_groups(config, spells)
 
-    print('foo')
+    # print('foo')
 
-    # save_gina_config(config)
+    # dump_gina_config()
+    save_gina_config(config)
 
-    # launch_gina(config)
+    launch_gina(config)

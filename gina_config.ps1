@@ -1,1 +1,1 @@
-& python gina_config.py
+& python -m gina_config

@@ -11,12 +11,17 @@ class ColorPalette(Enum):
     DARK_PURPLE = '#FF990099'
     DARK_BROWN = '#FF874219'
     DARK_BLUE = '#FF0048AF'
-    DARK_RED = '#FF800002'
+    DARK_RED = '#FF800000'
     DARK_ORANGE = '#FFC17003'
     DARK_GREEN = '#FF006D00'
     DARK_GREY = '#FF7A7A7A'
     DARK_YELLOW = '#FFB5A809'
     LIGHT_BLUE = '#FF697CC1'
+    LIGHT_GREY = '#FFDBDBDB'
+    FULLY_TRANSPARENT = '#00000000'
+    TRANSPARENT_BLACK = '#C4000000'
+    BLACK = '#FF000000'
+    WHITE = '#FFFFFFFF'
 
     def __str__(self):
         return self.value

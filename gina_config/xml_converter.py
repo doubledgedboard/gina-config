@@ -1,4 +1,10 @@
+# third party
 import declxml as xml
+
+# local
+import gina_config.categories
+import gina_config.overlays
+import gina_config.settings
 
 #   <Settings>
 #     <AcceptShareLevel>Anybody</AcceptShareLevel>
@@ -468,21 +474,39 @@ configuration_processor = xml.dictionary(
         settings_processor,
         behavior_groups_processor,
         categories_processor,
-        trigger_groups_processor,
+        # trigger_groups_processor,
         # characters_processor
     ])
 
 
-def export_to_string(gina_config) -> str:
+def export_to_string() -> str:
     return xml.serialize_to_string(
         configuration_processor,
-        gina_config,
+        {
+            'Settings': gina_config.settings.settings,
+            'BehaviorGroups': [
+                *gina_config.overlays.text_overlays,
+                *gina_config.overlays.timer_overlays
+            ],
+            'Categories': gina_config.categories.categories,
+            # 'TriggerGroups': config_data.trigger_groups,
+            # 'Characters': characters
+        },
         indent='  ')
 
 
-def export_to_file(gina_config, file_path) -> None:
+def export_to_file(file_path) -> None:
     return xml.serialize_to_file(
         configuration_processor,
-        gina_config,
+        {
+            'Settings': gina_config.settings.settings,
+            'BehaviorGroups': [
+                *gina_config.overlays.text_overlays,
+                *gina_config.overlays.timer_overlays
+            ],
+            'Categories': gina_config.categories.categories,
+            # 'TriggerGroups': config_data.trigger_groups,
+            # 'Characters': characters
+        },
         xml_file_path=file_path,
         indent='  ')

@@ -1,5 +1,7 @@
-from . import gina_config
-from utils.trigger_groups import add_trigger_group
+# local
+import gina_config.trigger_groups
+import gina_config.triggers
+
 
 '''
 abstraction over trigger groups and triggers
