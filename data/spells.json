@@ -1,7 +1,7 @@
 [
     {
         "name": "Invisibility versus Undead",
-        "type": "Beneficial",
+        "type": "detrimental",
         "buff_effects": [
             "invis_vs_undead"
         ],

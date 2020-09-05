@@ -1,7 +1,13 @@
 
+triggers = []
+
+
+# public api
+# ============================================================================
+
 def create_trigger(name) -> dict:
     return {
-        'Category': 'Right // HP/AC Buffs',
+        'Category': None,
         'ClipboardText': '',
         'Comments': '',
         'CopyToClipboard': False,
@@ -55,3 +61,7 @@ def create_trigger(name) -> dict:
         'UseTimerEnded': True,
         'UseTimerEnding': True
     }
+
+
+def add_trigger(trigger) -> None:
+    triggers.append(trigger)

@@ -3,8 +3,10 @@ from typing import Union
 import json
 
 # local
-import gina_config.settings
+import gina_config.characters
 import gina_config.overlays
+import gina_config.settings
+import gina_config.spellbook
 import gina_config.xml_converter
 
 
@@ -96,10 +98,29 @@ def update_overlays(config) -> None:
             overlay, overlay_settings)
 
 
+@action_step('updating spellbook')
+def update_spellbook(spells) -> None:
+    gina_config.spellbook.add_spells(spells)
+
+
+@action_step('updating characters')
+def update_characters(config) -> None:
+    for character in config['characters']:
+        character_spells = gina_config.spellbook.get_spells_for_character_class(
+            character['class'], character_level=character['level']
+        )
+        gina_config.characters.add_spells_to_character(
+            character,
+            character_spells)
+        gina_config.characters.add_character(character)
+
+
 @action_step('updating trigger groups')
-def update_trigger_groups(config, spells) -> None:
-    spellbook.add_character_levels_to_spells(config['characters'], spells)
-    spellbook.add_spells_to_trigger_groups(spells)
+def update_trigger_groups() -> None:
+    gina_config.characters.update_trigger_groups()
+    # add triggers for each spell level
+    # spellbook.add_character_levels_to_spells(config['characters'], spells)
+    # spellbook.add_spells_to_trigger_groups(spells)
 
 
 @output_step('dumping gina config to output')
@@ -133,7 +154,13 @@ def main():
 
     update_settings(config)
     update_overlays(config)
-    # update_trigger_groups(config, spells)
+    # TODO:
+    # add all spells to the spellbook
+    # add characters
+    # use characters to update trigger groups using spellbook ?
+    update_spellbook(spells)
+    update_characters(config)
+    update_trigger_groups()
 
     # print('foo')
 
